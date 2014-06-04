@@ -4,24 +4,25 @@
 #include <SFML/Graphics.hpp>
 
 #include "Grid.h"
-#include "GridObject.h"
-#include "GridSpace.h"
-
-//Define a type for directions
-enum  Dir { north, south, east, west };
 
 class Train
 {
 	public:
-	Train( sf::Vector2f a_startGridPosition, Dir a_startDir );
-	void changeDir( Dir a_newDir );
+	//Define an enumeration type for directions
+	enum dir { North = 0, West = 1, South = 2, East = 3 };
+
+	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir a_startDir, Grid* a_parentGrid );
+	void changeDir( dir a_newDir );
 	void tick();
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 
+
 	private:
 	sf::Vector2f position; //Position in GridSpaces
-	Dir currentDir;
+	dir currentDir;
+	Grid* parentGrid;
 	float speed;
+	sf::Sprite sprite;
 };
 
 #endif
