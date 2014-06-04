@@ -7,7 +7,7 @@
 #include "GridObject.h"
 #include "GridSpace.h"
 
-//Define a type for directions that can be accessed  via Dirs::<direction>
+//Define a type for directions
 enum  Dir { north, south, east, west };
 
 class Train
