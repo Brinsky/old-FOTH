@@ -1,6 +1,4 @@
 build/**
-SConstruct
-SConscript
 FOTH
 .sconsign.dblite
 **/*.swp
