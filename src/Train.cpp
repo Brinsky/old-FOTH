@@ -9,7 +9,7 @@ Train::Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir
 
 	parentGrid = a_parentGrid;
 
-	speed = 0.25;
+	speed = 0.15; //Speed in GridSpace units per second
 }
 
 void Train::changeDir( dir a_newDir )
@@ -17,21 +17,21 @@ void Train::changeDir( dir a_newDir )
 	currentDir = a_newDir;
 }
 
-void Train::tick()
+void Train::tick( sf::Time a_tickTime )
 {
 	switch (currentDir)
 	{
 		case North:
-			position.y += speed;
+			position.y += speed * a_tickTime.asSeconds();
 			break;
 		case West:
-			position.x -= speed;
+			position.x -= speed * a_tickTime.asSeconds();
 			break;
 		case South:
-			position.y -= speed;
+			position.y -= speed * a_tickTime.asSeconds();
 			break;
 		case East:
-			position.x += speed;
+			position.x += speed * a_tickTime.asSeconds();
 			break;
 		default:
 			break;

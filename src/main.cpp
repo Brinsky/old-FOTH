@@ -26,6 +26,9 @@ int main(){
 	sf::RenderWindow window(sf::VideoMode(448, 640), "FOTH");
 	window.setFramerateLimit(60);
 
+	sf::Clock timeDiff; //Used to properly advance the game each tick
+	sf::Time tickTime;	
+
 	//The "game loop"
 	while ( window.isOpen() )
 	{
@@ -39,7 +42,11 @@ int main(){
 				window.close();
 		}
 		
-		painTrain.tick();	
+		//Takes current value in timeDiff and restarts it
+		//Used to "freeze" a single time value to ensure all tick functions receive the same time
+		tickTime = timeDiff.restart();
+
+		painTrain.tick(tickTime);
 		testGrid.scroll(1);	
 
 		//Drawing operations

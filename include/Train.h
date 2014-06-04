@@ -13,7 +13,7 @@ class Train
 
 	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir a_startDir, Grid* a_parentGrid );
 	void changeDir( dir a_newDir );
-	void tick();
+	void tick( sf::Time a_tickTime );
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 
 
