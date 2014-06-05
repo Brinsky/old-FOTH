@@ -11,7 +11,7 @@ GridSpace::GridSpace(int a_gridSpacePositionX, int a_gridSpacePositionY, sf::Tex
 	
 	gridSpacePosition.x = a_gridSpacePositionX; 
 	gridSpacePosition.y = a_gridSpacePositionY;
-	
+
 }
 
 GridSpace::GridSpace(sf::Vector2i a_gridSpacePosition, sf::Texture* a_spaceTexture, Grid* a_parentGrid){
@@ -61,5 +61,5 @@ void GridSpace::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 		object->draw(a_target, a_states);
 
 	}
-	
+
 }

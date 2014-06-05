@@ -2,25 +2,25 @@
 #include <SFML/Graphics.hpp>
 #include "FOTHgrid.h"
 #include "Train.h"
- 
+
 int main(){
 
 	sf::Texture defaultTexture;
-	if( !defaultTexture.loadFromFile( "res/OpenPlain.png" ) )
+	if ( !defaultTexture.loadFromFile( "res/OpenPlain.png" ) )
 	{
 		std::cout << "Texture did not load properly!" << std::endl;
 		return -1;
 	}
 	
 	sf::Texture trainTexture;
-	if( !trainTexture.loadFromFile( "res/Train.png" ) )
+	if ( !trainTexture.loadFromFile( "res/Train.png" ) )
 	{
 		std::cout << "Texture did not load properly!" << std::endl;
 		return -1;
 	}
 
 	FOTHgrid testGrid(20, &defaultTexture);
-	Train painTrain( &trainTexture, sf::Vector2f( 2.0, 2.0 ), Train::North, (Grid*) &testGrid );
+	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
 
 	//Creating window and setting frame rate
 	sf::RenderWindow window(sf::VideoMode(448, 640), "FOTH");
@@ -57,6 +57,6 @@ int main(){
 	
 	}
 
-    return 0;
+   	 return 0;
 
 }

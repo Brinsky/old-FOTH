@@ -21,7 +21,7 @@ protected:
 	GridObject* object;
 	sf::Sprite background;
 	sf::Vector2i gridSpacePosition;
-
+	
 };
 
 #endif
