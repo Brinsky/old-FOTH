@@ -13,8 +13,8 @@ public:
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 	void setGridPosition(float a_positionX, float a_positionY);
 	void setGridPosition(sf::Vector2f a_position);
-	void moveGridPosition(float a_offsetX, float a_offsetY);
-	void moveGridPosition(sf::Vector2f a_offset);
+	void moveGridPosition(float a_offsetX, float a_offsetY); //In GridSpace units!
+	void moveGridPosition(sf::Vector2f a_offset); //In GridSpace units!
 	sf::Vector2f getGridPosition();
 	sf::Vector2i getGridDimensions();
 	sf::Vector2i getGridSpaceDimensions();

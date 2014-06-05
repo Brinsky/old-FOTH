@@ -7,7 +7,7 @@ class FOTHgrid : public Grid {
 
 public:
 	FOTHgrid(int a_length, sf::Texture* a_FOTHdefaultTexture);
-	void scroll(int a_tick);
+	void scroll( sf::Time  a_tickTime, float scrollSpeed /*In GridSpace units per second*/ );
 
 };
 

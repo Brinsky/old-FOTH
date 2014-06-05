@@ -19,7 +19,7 @@ int main(){
 		return -1;
 	}
 
-	FOTHgrid testGrid(20, &defaultTexture);
+	FOTHgrid testGrid(20, &defaultTexture );
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
 
 	//Creating window and setting frame rate
@@ -47,7 +47,7 @@ int main(){
 		tickTime = timeDiff.restart();
 
 		painTrain.tick(tickTime);
-		testGrid.scroll(1);	
+		testGrid.scroll(tickTime, 3 );	
 
 		//Drawing operations
 		window.clear();

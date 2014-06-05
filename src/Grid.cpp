@@ -89,15 +89,13 @@ void Grid::setGridPosition(sf::Vector2f a_position){
 
 void Grid::moveGridPosition(float a_offsetX, float a_offsetY){
 
-	gridPosition.x += a_offsetX;
-	gridPosition.y += a_offsetY;
-
+	moveGridPosition( sf::Vector2f( a_offsetX, a_offsetY ) );	
 }
 
 void Grid::moveGridPosition(sf::Vector2f a_offset){
 
-	gridPosition.x += a_offset.x;
-	gridPosition.y += a_offset.y;
+	gridPosition.x += (a_offset.x * gridSpaceDimensions.x);
+	gridPosition.y += a_offset.y * gridSpaceDimensions.y;
 
 }
 
