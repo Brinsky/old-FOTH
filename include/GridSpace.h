@@ -13,8 +13,10 @@ public:
 	GridSpace(sf::Vector2i a_gridSpacePosition, sf::Texture* a_spaceTexture, Grid* a_parentGrid);
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 	void setGridObject(GridObject* a_object);
+	GridObject* getGridObject();
 	sf::Vector2i getGridSpacePosition();
 	sf::Vector2i getGridSpaceDimensions();
+	bool containsPixelCoordinates(int x, int y);
 
 protected:
 	Grid* parentGrid;

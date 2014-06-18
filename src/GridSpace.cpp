@@ -25,6 +25,12 @@ GridSpace::GridSpace(sf::Vector2i a_gridSpacePosition, sf::Texture* a_spaceTextu
 
 }
 
+GridObject* GridSpace::getGridObject(){
+
+	return object;
+
+}
+
 void GridSpace::setGridObject(GridObject* a_object){
 
 	object = a_object;
@@ -48,13 +54,9 @@ void GridSpace::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 	background.setPosition(
 	((gridSpacePosition.x * parentGrid->getGridSpaceDimensions().x) + parentGrid->getGridPosition().x),
 	((gridSpacePosition.y * parentGrid->getGridSpaceDimensions().y) + parentGrid->getGridPosition().y));
-
-
-//	if((gridSpacePosition.x % 2 == 0) && (gridSpacePosition.y % 2 == 0)){
 	
-		a_target.draw(background, a_states);
+	a_target.draw(background, a_states);
 	
-//	}
 	
 	if(object != NULL){
 
@@ -63,3 +65,12 @@ void GridSpace::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 	}
 
 }
+
+bool GridSpace::containsPixelCoordinates(int x, int y){
+
+	sf::Rect<int> gridSpaceBoundaries(background.getPosition().x, background.getPosition().y, parentGrid->getGridSpaceDimensions().x, parentGrid->getGridSpaceDimensions().y);
+	
+	return gridSpaceBoundaries.contains(x, y);
+
+}
+

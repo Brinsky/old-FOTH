@@ -116,3 +116,23 @@ sf::Vector2i Grid::getGridSpaceDimensions(){
 	return gridSpaceDimensions;
 
 }
+
+sf::Vector2i Grid::getGridSpaceContaining(int x, int y){
+
+	for(int i = 0; i < gridDimensions.x; i++){
+	
+		for(int j = 0; j < gridDimensions.y; j++){
+		
+			if(grid[i][j]->containsPixelCoordinates(x, y)){
+				
+				return grid[i][j]->getGridSpacePosition();
+
+			}
+		
+		}
+	
+	}
+
+	return sf::Vector2i(-1, -1);
+
+}

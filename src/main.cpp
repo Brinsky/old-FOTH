@@ -1,9 +1,12 @@
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "FOTHgrid.h"
 #include "Train.h"
 
 int main(){
+
+	std::vector<sf::Texture*> gridObjectTextures;	
 
 	sf::Texture defaultTexture;
 	if ( !defaultTexture.loadFromFile( "res/OpenPlain.png" ) )
@@ -11,15 +14,26 @@ int main(){
 		std::cout << "Texture did not load properly!" << std::endl;
 		return -1;
 	}
-	
+	gridObjectTextures.push_back(&defaultTexture);	
+
 	sf::Texture trainTexture;
 	if ( !trainTexture.loadFromFile( "res/Train.png" ) )
 	{
 		std::cout << "Texture did not load properly!" << std::endl;
-		return -1;
+		return -1; 
+
 	}
 
-	FOTHgrid testGrid(20, &defaultTexture );
+	sf::Texture trackTexture;
+	if(!trackTexture.loadFromFile("res/Track.png")){
+
+		std::cout << "Texture did not load properly!" << std::endl;
+		return -1;
+
+	}
+	gridObjectTextures.push_back(&trainTexture);
+
+	FOTHgrid testGrid(20, gridObjectTextures );
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
 
 	//Creating window and setting frame rate
@@ -40,6 +54,21 @@ int main(){
 		{
 			if( event.type == sf::Event::Closed )
 				window.close();
+	
+			if(event.type == sf::Event::MouseButtonPressed){
+			
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
+				
+					std::cout << testGrid.getGridSpaceContaining(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y).x << ", " << testGrid.getGridSpaceContaining(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y).y << std::endl;
+
+				}else{
+
+//					testGrid.addTrack(sf::Mouse::getPosition(window));
+
+				}
+
+			}
+
 		}
 		
 		//Takes current value in timeDiff and restarts it
@@ -47,7 +76,7 @@ int main(){
 		tickTime = timeDiff.restart();
 
 		painTrain.tick(tickTime);
-		testGrid.scroll(tickTime, 3 );	
+//		testGrid.scroll(tickTime, 3 );	
 
 		//Drawing operations
 		window.clear();
