@@ -17,6 +17,7 @@ public:
 	sf::Vector2i getGridSpacePosition();
 	sf::Vector2i getGridSpaceDimensions();
 	bool containsPixelCoordinates(int x, int y);
+	sf::Vector2f getGridPosition(); 
 
 protected:
 	Grid* parentGrid;

@@ -21,7 +21,9 @@ GridObject::GridObject(sf::Vector2f a_objectPosition, sf::Texture* a_objectGraph
 
 void GridObject::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
-	objectGraphic.setPosition((objectPosition.x + parentGridSpace->getGridSpacePosition().x) * parentGridSpace->getGridSpaceDimensions().x, (objectPosition.y + parentGridSpace->getGridSpacePosition().y) * parentGridSpace->getGridSpaceDimensions().y);
+	objectGraphic.setPosition(
+	(parentGridSpace->getGridPosition().x + (parentGridSpace->getGridSpaceDimensions().x * (parentGridSpace->getGridSpacePosition().x + objectPosition.x))),
+	(parentGridSpace->getGridPosition().y + (parentGridSpace->getGridSpaceDimensions().y * (parentGridSpace->getGridSpacePosition().y + objectPosition.y))));
 
 	a_target.draw(objectGraphic, a_states);
 

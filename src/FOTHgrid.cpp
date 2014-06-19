@@ -14,6 +14,20 @@ void FOTHgrid::scroll(sf::Time a_tickTime, float scrollSpeed){
 
 void FOTHgrid::addTrack(int x, int y){
 
-	//grid[getGridSpaceContaining(x, y).x][getGridSpaceContaining(x, y).y]->setGridObject(new Track());
+	if(getGridSpaceContaining(x, y)->getGridObject() == NULL){
+	
+		getGridSpaceContaining(x, y)->setGridObject(new Track(gridObjectTextures[1], getGridSpaceContaining(x, y)));
+
+	}	
+
+}
+
+void FOTHgrid::removeTrack(int x, int y){
+
+	if(Track::isTrack(getGridSpaceContaining(x, y)->getGridSpacePosition().x, getGridSpaceContaining(x, y)->getGridSpacePosition().y)){
+
+		getGridSpaceContaining(x, y)->setGridObject(NULL);
+
+	}
 
 }

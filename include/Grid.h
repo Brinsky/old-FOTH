@@ -18,10 +18,10 @@ public:
 	sf::Vector2f getGridPosition();
 	sf::Vector2i getGridDimensions();
 	sf::Vector2i getGridSpaceDimensions();
-	sf::Vector2i getGridSpaceContaining(int x, int y);	
 
 protected:
-	GridSpace*** grid;
+	GridSpace*** grid;	
+	GridSpace* getGridSpaceContaining(int x, int y);	
 	sf::Vector2f gridPosition;
 	sf::Vector2i gridDimensions;
 	sf::Vector2i gridSpaceDimensions;

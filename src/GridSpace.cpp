@@ -45,7 +45,7 @@ sf::Vector2i GridSpace::getGridSpacePosition(){
 
 sf::Vector2i GridSpace::getGridSpaceDimensions(){
 
-	return parentGrid->getGridDimensions();
+	return parentGrid->getGridSpaceDimensions();
 
 }
 
@@ -53,13 +53,12 @@ void GridSpace::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
 	background.setPosition(
 	((gridSpacePosition.x * parentGrid->getGridSpaceDimensions().x) + parentGrid->getGridPosition().x),
-	((gridSpacePosition.y * parentGrid->getGridSpaceDimensions().y) + parentGrid->getGridPosition().y));
-	
+	((gridSpacePosition.y * parentGrid->getGridSpaceDimensions().y) + parentGrid->getGridPosition().y));	
+
 	a_target.draw(background, a_states);
 	
-	
 	if(object != NULL){
-
+	
 		object->draw(a_target, a_states);
 
 	}
@@ -74,3 +73,8 @@ bool GridSpace::containsPixelCoordinates(int x, int y){
 
 }
 
+sf::Vector2f GridSpace::getGridPosition(){
+
+	return parentGrid->getGridPosition();
+
+}

@@ -8,6 +8,22 @@ Track::Track(sf::Texture* a_trackGraphic, GridSpace* a_parentGridSpace) : FOTHgr
 
 }
 
+bool Track::isTrack(int x, int y){
+
+	for(int i = 0; i < trackGridSpaces.size(); i++){
+
+		if(trackGridSpaces[i] == sf::Vector2i(x, y)){
+		
+			return true;
+
+		}
+
+	}
+
+	return false;
+
+}
+
 bool Track::isNeighborTrack(int a_xGridPosOffset, int a_yGridPosOffset){
 
 	for(int i = 0; i < trackGridSpaces.size(); i++){
@@ -29,7 +45,9 @@ void Track::interactWithTrain(/*train*/){
 
 void Track::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
-	objectGraphic.setPosition(parentGridSpace->getGridSpaceDimensions().x * (parentGridSpace->getGridSpacePosition().x + objectPosition.x), parentGridSpace->getGridSpaceDimensions().y * (parentGridSpace->getGridSpacePosition().y + objectPosition.y));
+	objectGraphic.setTextureRect(sf::IntRect(0, 0, 64, 64));
+
+	objectGraphic.setPosition((parentGridSpace->getGridSpaceDimensions().x * (parentGridSpace->getGridSpacePosition().x + objectPosition.x)) + parentGridSpace->getGridPosition().x, (parentGridSpace->getGridSpaceDimensions().y * (parentGridSpace->getGridSpacePosition().y + objectPosition.y)) + parentGridSpace->getGridPosition().y);
 
 	if(isNeighborTrack(0, -1)){
 
@@ -68,5 +86,7 @@ void Track::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 		objectGraphic.setTextureRect(sf::IntRect(64, 128, 64, 64));
 	
 	}
+
+	a_target.draw(objectGraphic, a_states);
 
 }

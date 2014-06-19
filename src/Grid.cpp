@@ -90,12 +90,13 @@ void Grid::setGridPosition(sf::Vector2f a_position){
 void Grid::moveGridPosition(float a_offsetX, float a_offsetY){
 
 	moveGridPosition( sf::Vector2f( a_offsetX, a_offsetY ) );	
+
 }
 
 void Grid::moveGridPosition(sf::Vector2f a_offset){
 
 	gridPosition.x += (a_offset.x * gridSpaceDimensions.x);
-	gridPosition.y += a_offset.y * gridSpaceDimensions.y;
+	gridPosition.y += (a_offset.y * gridSpaceDimensions.y);
 
 }
 
@@ -117,7 +118,7 @@ sf::Vector2i Grid::getGridSpaceDimensions(){
 
 }
 
-sf::Vector2i Grid::getGridSpaceContaining(int x, int y){
+GridSpace* Grid::getGridSpaceContaining(int x, int y){
 
 	for(int i = 0; i < gridDimensions.x; i++){
 	
@@ -125,7 +126,7 @@ sf::Vector2i Grid::getGridSpaceContaining(int x, int y){
 		
 			if(grid[i][j]->containsPixelCoordinates(x, y)){
 				
-				return grid[i][j]->getGridSpacePosition();
+				return grid[i][j];
 
 			}
 		
@@ -133,6 +134,6 @@ sf::Vector2i Grid::getGridSpaceContaining(int x, int y){
 	
 	}
 
-	return sf::Vector2i(-1, -1);
+	return NULL;
 
 }

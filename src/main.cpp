@@ -31,7 +31,7 @@ int main(){
 		return -1;
 
 	}
-	gridObjectTextures.push_back(&trainTexture);
+	gridObjectTextures.push_back(&trackTexture);
 
 	FOTHgrid testGrid(20, gridObjectTextures );
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
@@ -58,14 +58,15 @@ int main(){
 			if(event.type == sf::Event::MouseButtonPressed){
 			
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-				
-					std::cout << testGrid.getGridSpaceContaining(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y).x << ", " << testGrid.getGridSpaceContaining(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y).y << std::endl;
-
+		
+					testGrid.removeTrack(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+	
 				}else{
+						
+					testGrid.addTrack(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 
-//					testGrid.addTrack(sf::Mouse::getPosition(window));
 
-				}
+				}	
 
 			}
 
@@ -76,7 +77,7 @@ int main(){
 		tickTime = timeDiff.restart();
 
 		painTrain.tick(tickTime);
-//		testGrid.scroll(tickTime, 3 );	
+		testGrid.scroll(tickTime, 3 );	
 
 		//Drawing operations
 		window.clear();
