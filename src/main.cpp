@@ -6,6 +6,8 @@
 
 int main(){
 
+	sf::View tempView;
+
 	std::vector<sf::Texture*> gridObjectTextures;	
 
 	sf::Texture defaultTexture;
@@ -59,12 +61,11 @@ int main(){
 			
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
 		
-					testGrid.removeTrack(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+					testGrid.removeTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224), sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
 	
 				}else{
 						
-					testGrid.addTrack(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
-
+					testGrid.addTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224), sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
 
 				}	
 
@@ -77,7 +78,10 @@ int main(){
 		tickTime = timeDiff.restart();
 
 		painTrain.tick(tickTime);
-		testGrid.scroll(tickTime, 3 );	
+		tempView = window.getView();
+		tempView.move(0, -1);
+		window.setView(tempView);
+//		testGrid.scroll(tickTime, 3 );	
 
 		//Drawing operations
 		window.clear();
