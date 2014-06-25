@@ -1,7 +1,7 @@
 #include "Train.h"
 #include <cmath>
 
-Train::Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir a_startDir, Grid* a_parentGrid )
+Train::Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, FOTH::dir a_startDir, Grid* a_parentGrid )
 {
 	sprite.setTexture(*a_trainTexture);
 
@@ -13,7 +13,7 @@ Train::Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir
 	speed = 2; //Speed in GridSpace units per second
 }
 
-void Train::changeDir( dir a_newDir )
+void Train::changeDir( FOTH::dir a_newDir )
 {
 	currentDir = a_newDir;
 }
@@ -22,16 +22,16 @@ void Train::tick( sf::Time a_tickTime )
 {
 	switch (currentDir)
 	{
-		case North:
+		case FOTH::North:
 			position.y -= speed * a_tickTime.asSeconds();
 			break;
-		case West:
+		case FOTH::West:
 			position.x -= speed * a_tickTime.asSeconds();
 			break;
-		case South:
+		case FOTH::South:
 			position.y += speed * a_tickTime.asSeconds();
 			break;
-		case East:
+		case FOTH::East:
 			position.x += speed * a_tickTime.asSeconds();
 			break;
 		default:
@@ -49,27 +49,27 @@ void Train::draw( sf::RenderTarget& a_target, sf::RenderStates a_states )
 }
 
 /** Finds the upcoming (from the Train's perspective) edge between two GridSpaces **/
-int Train::nextGridSpaceEdge( dir a_dir )
+int Train::nextGridSpaceEdge( FOTH::dir a_dir )
 {
 	int edgeCoordGsu = -1;
 
-	switch (a_dir) 
+	switch (a_dir)
 	{
-		case North:
+		case FOTH::North:
 			edgeCoordGsu = std::floor(position.y);
 			break;
-		case West:
+		case FOTH::West:
 			edgeCoordGsu = std::floor(position.x);
 			break;
-		case South:
+		case FOTH::South:
 			edgeCoordGsu = std::ceil(position.y);
 			break;
-		case East:
+		case FOTH::East:
 			edgeCoordGsu = std::ceil(position.y);
 			break;
 		default:
 			break;
 	}
-	
+
 	return edgeCoordGsu;
 }

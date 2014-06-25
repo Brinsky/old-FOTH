@@ -4,27 +4,25 @@
 #include <SFML/Graphics.hpp>
 
 #include "Grid.h"
+#include "FOTHUtility.h"
 
 /* A train which moves down a track */
 class Train
 {
 	public:
-	/** An enumeration type for directions */
-	enum dir { North = 0, West = 1, South = 2, East = 3 };
-
-	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir a_startDir, Grid* a_parentGrid );
-	void changeDir( dir a_newDir );
+	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, FOTH::dir a_startDir, Grid* a_parentGrid );
+	void changeDir( FOTH::dir a_newDir );
 	void tick( sf::Time a_tickTime );
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 
 
 	private:
 	sf::Vector2f position; //Position in GridSpaces
-	dir currentDir;
+	FOTH::dir currentDir;
 	Grid* parentGrid;
 	float speed;
 	sf::Sprite sprite;
-	int nextGridSpaceEdge( dir a_dir ); //Returns GSU
+	int nextGridSpaceEdge( FOTH::dir a_dir ); //Returns GSU
 };
 
 #endif

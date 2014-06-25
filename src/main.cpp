@@ -9,7 +9,7 @@
 //Pxl = Pixels
 
 const int SCREEN_WIDTH = 448;
-const int SCREEN_HEIGHT = 640; 
+const int SCREEN_HEIGHT = 640;
 
 int main(){
 
@@ -41,7 +41,7 @@ int main(){
 	gridObjectTextures.push_back(&trackTexture);
 
 	FOTHgrid testGrid(20, gridObjectTextures);
-	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
+	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), FOTH::North, (Grid*) &testGrid );
 
 	//Creating window and setting frame rate
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "FOTH");
