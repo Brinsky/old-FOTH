@@ -3,3 +3,4 @@ FOTH
 .sconsign.dblite
 **/*.swp
 **/*.swo
+docs/**
