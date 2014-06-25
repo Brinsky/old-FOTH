@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "Camera.h"
 #include "FOTHgrid.h"
 #include "Train.h"
 
@@ -8,8 +9,6 @@ const int SCREEN_WIDTH = 448;
 const int SCREEN_HEIGHT = 640; 
 
 int main(){
-
-	sf::View tempView;
 
 	std::vector<sf::Texture*> gridObjectTextures;	
 
@@ -38,12 +37,14 @@ int main(){
 	}
 	gridObjectTextures.push_back(&trackTexture);
 
-	FOTHgrid testGrid(20, gridObjectTextures );
+	FOTHgrid testGrid(20, gridObjectTextures);
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
 
 	//Creating window and setting frame rate
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "FOTH");
 	window.setFramerateLimit(60);
+
+	Camera screen(SCREEN_WIDTH, SCREEN_HEIGHT, &window);
 
 	sf::Clock timeDiff; //Used to properly advance the game each tick
 	sf::Time tickTime;	
@@ -81,10 +82,7 @@ int main(){
 		tickTime = timeDiff.restart();
 
 		painTrain.tick(tickTime);
-		tempView = window.getView();
-		tempView.move(0, -1);
-		window.setView(tempView);
-//		testGrid.scroll(tickTime, 3 );	
+		screen.move(0, -1);
 
 		//Drawing operations
 		window.clear();
