@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+/** A controllable camera used to display a specific game area on the main window */
 class Camera {
 
 public:

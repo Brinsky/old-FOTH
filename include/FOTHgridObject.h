@@ -4,6 +4,7 @@
 #include "GridObject.h"
 #include "GridSpace.h"
 
+/** Implementation specific subclass of GridObject which handles interaction with a Train */
 class FOTHgridObject : public GridObject {
 
 public:

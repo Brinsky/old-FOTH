@@ -4,6 +4,7 @@
 #include "FOTHgridObject.h"
 #include <vector>
 
+/** Represents a single piece of track. Track pieces control the movement of the train. */
 class Track : public FOTHgridObject {
 
 public:

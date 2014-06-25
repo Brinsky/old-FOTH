@@ -5,6 +5,7 @@
 
 class GridSpace;
 
+/** A structured grid containing and managing a two-dimensional array of GridSpaces */
 class Grid {
 
 public:

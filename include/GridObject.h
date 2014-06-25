@@ -5,6 +5,7 @@
 
 class GridSpace;
 
+/** Objects which can be dynamically contained within GridSpaces */
 class GridObject {
 
 public:

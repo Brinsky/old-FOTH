@@ -60,6 +60,7 @@ Grid::Grid(sf::Vector2f a_gridPosPxl, sf::Vector2i a_gridDimGsu, sf::Vector2i a_
 
 }
 
+/** Draws all GridSpaces and GridObjects in their current state */
 void Grid::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
 	for(int i = 0; i < gridDimGsu.x; i++){

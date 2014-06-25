@@ -5,6 +5,7 @@
 #include "Grid.h"
 #include "Track.h"
 
+/** Implementation specific subclass of Grid, manages textures and track placement */
 class FOTHgrid : public Grid {
 
 public:

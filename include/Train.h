@@ -5,6 +5,7 @@
 
 #include "Grid.h"
 
+/* A train which moves down a track */
 class Train
 {
 	public:
