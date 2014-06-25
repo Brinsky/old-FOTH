@@ -4,6 +4,9 @@
 #include "FOTHgrid.h"
 #include "Train.h"
 
+const int SCREEN_WIDTH = 448;
+const int SCREEN_HEIGHT = 640; 
+
 int main(){
 
 	sf::View tempView;
@@ -39,7 +42,7 @@ int main(){
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), Train::North, (Grid*) &testGrid );
 
 	//Creating window and setting frame rate
-	sf::RenderWindow window(sf::VideoMode(448, 640), "FOTH");
+	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "FOTH");
 	window.setFramerateLimit(60);
 
 	sf::Clock timeDiff; //Used to properly advance the game each tick
