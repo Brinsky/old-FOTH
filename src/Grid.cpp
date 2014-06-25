@@ -1,137 +1,137 @@
 #include "Grid.h"
 #include "GridSpace.h"
 
-Grid::Grid(float a_gridPositionX, float a_gridPositionY, int a_gridDimensionsWidth, int a_gridDimensionsLength, int a_gridSpaceDimensionsWidth, int a_gridSpaceDimensionsLength, sf::Texture* a_defaultSpaceTexture){
+Grid::Grid(float a_gridPosPxlX, float a_gridPosPxlY, int a_gridDimGsuWidth, int a_gridDimGsuLength, int a_gridSpaceDimPxlWidth, int a_gridSpaceDimPxlLength, sf::Texture* a_defaultSpaceTexture){
 
-	gridPosition.x = a_gridPositionX;
-	gridPosition.y = a_gridPositionY;
-	
-	gridDimensions.x = a_gridDimensionsWidth;
-	gridDimensions.y = a_gridDimensionsLength;
-	
-	gridSpaceDimensions.x = a_gridSpaceDimensionsWidth;
-	gridSpaceDimensions.y = a_gridSpaceDimensionsLength;
-	
-	grid = new GridSpace**[gridDimensions.x];
-	
-	for(int i = 0; i < gridDimensions.x; i++){
-	
-		grid[i] = new GridSpace*[gridDimensions.y];
-	
+	gridPosPxl.x = a_gridPosPxlX;
+	gridPosPxl.y = a_gridPosPxlY;
+
+	gridDimGsu.x = a_gridDimGsuWidth;
+	gridDimGsu.y = a_gridDimGsuLength;
+
+	gridSpaceDimPxl.x = a_gridSpaceDimPxlWidth;
+	gridSpaceDimPxl.y = a_gridSpaceDimPxlLength;
+
+	grid = new GridSpace**[gridDimGsu.x];
+
+	for(int i = 0; i < gridDimGsu.x; i++){
+
+		grid[i] = new GridSpace*[gridDimGsu.y];
+
 	}
-	
-	for(int i = 0; i < gridDimensions.x; i++){
-	
-		for(int j = 0; j < gridDimensions.y; j++){
-		
+
+	for(int i = 0; i < gridDimGsu.x; i++){
+
+		for(int j = 0; j < gridDimGsu.y; j++){
+
 			grid[i][j] = new GridSpace(i, j, a_defaultSpaceTexture, this);
-		
+
 		}
-	
+
 	}
 
 }
 
-Grid::Grid(sf::Vector2f a_gridPosition, sf::Vector2i a_gridDimensions, sf::Vector2i a_gridSpaceDimensions, sf::Texture* a_defaultSpaceTexture){
+Grid::Grid(sf::Vector2f a_gridPosPxl, sf::Vector2i a_gridDimGsu, sf::Vector2i a_gridSpaceDimPxl, sf::Texture* a_defaultSpaceTexture){
 
-	gridPosition = a_gridPosition;
-	
-	gridDimensions = a_gridDimensions;
-	
-	gridSpaceDimensions = a_gridSpaceDimensions;
-	
-	grid = new GridSpace**[gridDimensions.x];
-	
-	for(int i = 0; i < gridDimensions.x; i++){
-	
-		grid[i] = new GridSpace*[gridDimensions.y];
-	
+	gridPosPxl = a_gridPosPxl;
+
+	gridDimGsu = a_gridDimGsu;
+
+	gridSpaceDimPxl = a_gridSpaceDimPxl;
+
+	grid = new GridSpace**[gridDimGsu.x];
+
+	for(int i = 0; i < gridDimGsu.x; i++){
+
+		grid[i] = new GridSpace*[gridDimGsu.y];
+
 	}
-	
-	for(int i = 0; i < gridDimensions.x; i++){
-	
-		for(int j = 0; j < gridDimensions.y; j++){
-		
+
+	for(int i = 0; i < gridDimGsu.x; i++){
+
+		for(int j = 0; j < gridDimGsu.y; j++){
+
 			grid[i][j] = new GridSpace(i, j, a_defaultSpaceTexture, this);
-		
+
 		}
-	
+
 	}
 
 }
 
 void Grid::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
-	
-	for(int i = 0; i < gridDimensions.x; i++){
-	
-		for(int j = 0; j < gridDimensions.y; j++){
-		
+
+	for(int i = 0; i < gridDimGsu.x; i++){
+
+		for(int j = 0; j < gridDimGsu.y; j++){
+
 			grid[i][j]->draw(a_target, a_states);
-		
+
 		}
-	
+
 	}
 
 }
 
-void Grid::setGridPosition(float a_positionX, float a_positionY){
+void Grid::setGridPosPxl(float a_positionX, float a_positionY){
 
-	gridPosition.x = a_positionX;
-	gridPosition.y = a_positionY;
-
-}
-
-void Grid::setGridPosition(sf::Vector2f a_position){
-
-	gridPosition = a_position;
+	gridPosPxl.x = a_positionX;
+	gridPosPxl.y = a_positionY;
 
 }
 
-void Grid::moveGridPosition(float a_offsetX, float a_offsetY){
+void Grid::setGridPosPxl(sf::Vector2f a_position){
 
-	moveGridPosition( sf::Vector2f( a_offsetX, a_offsetY ) );	
-
-}
-
-void Grid::moveGridPosition(sf::Vector2f a_offset){
-
-	gridPosition.x += (a_offset.x * gridSpaceDimensions.x);
-	gridPosition.y += (a_offset.y * gridSpaceDimensions.y);
+	gridPosPxl = a_position;
 
 }
 
-sf::Vector2f Grid::getGridPosition(){
+void Grid::moveGridPosGsu(float a_offsetX, float a_offsetY){
 
-	return gridPosition;
-
-}
-
-sf::Vector2i Grid::getGridDimensions(){
-	
-	return gridDimensions;
+	moveGridPosGsu( sf::Vector2f( a_offsetX, a_offsetY ) );
 
 }
 
-sf::Vector2i Grid::getGridSpaceDimensions(){
+void Grid::moveGridPosGsu(sf::Vector2f a_offset){
 
-	return gridSpaceDimensions;
+	gridPosPxl.x += (a_offset.x * gridSpaceDimPxl.x);
+	gridPosPxl.y += (a_offset.y * gridSpaceDimPxl.y);
+
+}
+
+sf::Vector2f Grid::getGridPosPxl(){
+
+	return gridPosPxl;
+
+}
+
+sf::Vector2i Grid::getGridDimGsu(){
+
+	return gridDimGsu;
+
+}
+
+sf::Vector2i Grid::getGridSpaceDimPxl(){
+
+	return gridSpaceDimPxl;
 
 }
 
 GridSpace* Grid::getGridSpaceContaining(int x, int y){
 
-	for(int i = 0; i < gridDimensions.x; i++){
-	
-		for(int j = 0; j < gridDimensions.y; j++){
-		
-			if(grid[i][j]->containsPixelCoordinates(x, y)){
-				
+	for(int i = 0; i < gridDimGsu.x; i++){
+
+		for(int j = 0; j < gridDimGsu.y; j++){
+
+			if(grid[i][j]->containsPosPxl(x, y)){
+
 				return grid[i][j];
 
 			}
-		
+
 		}
-	
+
 	}
 
 	return NULL;

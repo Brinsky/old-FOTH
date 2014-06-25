@@ -2,26 +2,26 @@
 #include "Grid.h"
 #include "GridObject.h"
 
-GridSpace::GridSpace(int a_gridSpacePositionX, int a_gridSpacePositionY, sf::Texture* a_spaceTexture, Grid* a_parentGrid){ 
-
-	parentGrid = a_parentGrid; 
-	object = NULL; 
-	
-	background.setTexture(*a_spaceTexture); 
-	
-	gridSpacePosition.x = a_gridSpacePositionX; 
-	gridSpacePosition.y = a_gridSpacePositionY;
-
-}
-
-GridSpace::GridSpace(sf::Vector2i a_gridSpacePosition, sf::Texture* a_spaceTexture, Grid* a_parentGrid){
+GridSpace::GridSpace(int a_gridSpacePosGsuX, int a_gridSpacePosGsuY, sf::Texture* a_spaceTexture, Grid* a_parentGrid){
 
 	parentGrid = a_parentGrid;
 	object = NULL;
 
 	background.setTexture(*a_spaceTexture);
 
-	gridSpacePosition = a_gridSpacePosition;
+	gridSpacePosGsu.x = a_gridSpacePosGsuX;
+	gridSpacePosGsu.y = a_gridSpacePosGsuY;
+
+}
+
+GridSpace::GridSpace(sf::Vector2i a_gridSpacePosGsu, sf::Texture* a_spaceTexture, Grid* a_parentGrid){
+
+	parentGrid = a_parentGrid;
+	object = NULL;
+
+	background.setTexture(*a_spaceTexture);
+
+	gridSpacePosGsu = a_gridSpacePosGsu;
 
 }
 
@@ -37,44 +37,44 @@ void GridSpace::setGridObject(GridObject* a_object){
 
 }
 
-sf::Vector2i GridSpace::getGridSpacePosition(){
+sf::Vector2i GridSpace::getGridSpacePosGsu(){
 
-	return gridSpacePosition;
+	return gridSpacePosGsu;
 
 }
 
-sf::Vector2i GridSpace::getGridSpaceDimensions(){
+sf::Vector2i GridSpace::getGridSpaceDimPxl(){
 
-	return parentGrid->getGridSpaceDimensions();
+	return parentGrid->getGridSpaceDimPxl();
 
 }
 
 void GridSpace::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
 	background.setPosition(
-	((gridSpacePosition.x * parentGrid->getGridSpaceDimensions().x) + parentGrid->getGridPosition().x),
-	((gridSpacePosition.y * parentGrid->getGridSpaceDimensions().y) + parentGrid->getGridPosition().y));	
+	((gridSpacePosGsu.x * parentGrid->getGridSpaceDimPxl().x) + parentGrid->getGridPosPxl().x),
+	((gridSpacePosGsu.y * parentGrid->getGridSpaceDimPxl().y) + parentGrid->getGridPosPxl().y));
 
 	a_target.draw(background, a_states);
-	
+
 	if(object != NULL){
-	
+
 		object->draw(a_target, a_states);
 
 	}
 
 }
 
-bool GridSpace::containsPixelCoordinates(int x, int y){
+bool GridSpace::containsPosPxl(int x, int y){
 
-	sf::Rect<int> gridSpaceBoundaries(background.getPosition().x, background.getPosition().y, parentGrid->getGridSpaceDimensions().x, parentGrid->getGridSpaceDimensions().y);
-	
+	sf::Rect<int> gridSpaceBoundaries(background.getPosition().x, background.getPosition().y, parentGrid->getGridSpaceDimPxl().x, parentGrid->getGridSpaceDimPxl().y);
+
 	return gridSpaceBoundaries.contains(x, y);
 
 }
 
-sf::Vector2f GridSpace::getGridPosition(){
+sf::Vector2f GridSpace::getGridPosPxl(){
 
-	return parentGrid->getGridPosition();
+	return parentGrid->getGridPosPxl();
 
 }

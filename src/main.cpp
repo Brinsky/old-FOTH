@@ -4,11 +4,14 @@
 #include "FOTHgrid.h"
 #include "Train.h"
 
+//Gsu = GridSpace Units
+//Pxl = Pixels
+
 int main(){
 
 	sf::View tempView;
 
-	std::vector<sf::Texture*> gridObjectTextures;	
+	std::vector<sf::Texture*> gridObjectTextures;
 
 	sf::Texture defaultTexture;
 	if ( !defaultTexture.loadFromFile( "res/OpenPlain.png" ) )
@@ -16,13 +19,13 @@ int main(){
 		std::cout << "Texture did not load properly!" << std::endl;
 		return -1;
 	}
-	gridObjectTextures.push_back(&defaultTexture);	
+	gridObjectTextures.push_back(&defaultTexture);
 
 	sf::Texture trainTexture;
 	if ( !trainTexture.loadFromFile( "res/Train.png" ) )
 	{
 		std::cout << "Texture did not load properly!" << std::endl;
-		return -1; 
+		return -1;
 
 	}
 
@@ -43,12 +46,12 @@ int main(){
 	window.setFramerateLimit(60);
 
 	sf::Clock timeDiff; //Used to properly advance the game each tick
-	sf::Time tickTime;	
+	sf::Time tickTime;
 
 	//The "game loop"
 	while ( window.isOpen() )
 	{
-		
+
 		sf::Event event;
 
 		//Checking window events
@@ -56,23 +59,25 @@ int main(){
 		{
 			if( event.type == sf::Event::Closed )
 				window.close();
-	
-			if(event.type == sf::Event::MouseButtonPressed){
-			
-				if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-		
-					testGrid.removeTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224), sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
-	
-				}else{
-						
-					testGrid.addTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224), sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
 
-				}	
+			if(event.type == sf::Event::MouseButtonPressed){
+
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
+
+					testGrid.removeTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224),
+                        sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
+
+				}else{
+
+					testGrid.addTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224),
+                        sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
+
+				}
 
 			}
 
 		}
-		
+
 		//Takes current value in timeDiff and restarts it
 		//Used to "freeze" a single time value to ensure all tick functions receive the same time
 		tickTime = timeDiff.restart();
@@ -81,14 +86,14 @@ int main(){
 		tempView = window.getView();
 		tempView.move(0, -1);
 		window.setView(tempView);
-//		testGrid.scroll(tickTime, 3 );	
+//		testGrid.scroll(tickTime, 3 );
 
 		//Drawing operations
 		window.clear();
 		testGrid.draw( window, sf::RenderStates::Default );
 		painTrain.draw( window, sf::RenderStates::Default );
 		window.display();
-	
+
 	}
 
    	 return 0;

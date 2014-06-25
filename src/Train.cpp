@@ -41,8 +41,8 @@ void Train::tick( sf::Time a_tickTime )
 void Train::draw( sf::RenderTarget& a_target, sf::RenderStates a_states )
 {
 	sprite.setPosition(
-		(position.x * parentGrid->getGridSpaceDimensions().x) + parentGrid->getGridPosition().x,
-		(position.y * parentGrid->getGridSpaceDimensions().y) + parentGrid->getGridPosition().y);
+		(position.x * parentGrid->getGridSpaceDimPxl().x) + parentGrid->getGridPosPxl().x,
+		(position.y * parentGrid->getGridSpaceDimPxl().y) + parentGrid->getGridPosPxl().y);
 
 	a_target.draw(sprite, a_states);
-} 
+}

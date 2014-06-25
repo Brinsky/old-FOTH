@@ -1,19 +1,19 @@
 #include "GridObject.h"
 #include "GridSpace.h"
 
-GridObject::GridObject(float a_objectPositionX, float a_objectPositionY, sf::Texture* a_objectGraphic, GridSpace* a_parentGridSpace){
+GridObject::GridObject(float a_objectPosGsuX, float a_objectPosGsuY, sf::Texture* a_objectGraphic, GridSpace* a_parentGridSpace){
 
 
-	objectPosition.x = a_objectPositionX;
-	objectPosition.y = a_objectPositionY;
+	objectPosGsu.x = a_objectPosGsuX;
+	objectPosGsu.y = a_objectPosGsuY;
 	parentGridSpace = a_parentGridSpace;
 	objectGraphic.setTexture(*a_objectGraphic);
-	
+
 }
 
-GridObject::GridObject(sf::Vector2f a_objectPosition, sf::Texture* a_objectGraphic, GridSpace* a_parentGridSpace){
+GridObject::GridObject(sf::Vector2f a_objectPosGsu, sf::Texture* a_objectGraphic, GridSpace* a_parentGridSpace){
 
-	objectPosition = a_objectPosition;
+	objectPosGsu = a_objectPosGsu;
 	parentGridSpace = a_parentGridSpace;
 	objectGraphic.setTexture(*a_objectGraphic);
 
@@ -22,28 +22,28 @@ GridObject::GridObject(sf::Vector2f a_objectPosition, sf::Texture* a_objectGraph
 void GridObject::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
 	objectGraphic.setPosition(
-	(parentGridSpace->getGridPosition().x + (parentGridSpace->getGridSpaceDimensions().x * (parentGridSpace->getGridSpacePosition().x + objectPosition.x))),
-	(parentGridSpace->getGridPosition().y + (parentGridSpace->getGridSpaceDimensions().y * (parentGridSpace->getGridSpacePosition().y + objectPosition.y))));
+	(parentGridSpace->getGridPosPxl().x + (parentGridSpace->getGridSpaceDimPxl().x * (parentGridSpace->getGridSpacePosGsu().x + objectPosGsu.x))),
+	(parentGridSpace->getGridPosPxl().y + (parentGridSpace->getGridSpaceDimPxl().y * (parentGridSpace->getGridSpacePosGsu().y + objectPosGsu.y))));
 
 	a_target.draw(objectGraphic, a_states);
 
 }
 
-void GridObject::setObjectPosition(float a_positionX, float a_positionY){
+void GridObject::setObjectPosGsu(float a_positionX, float a_positionY){
 
-	objectPosition.x = a_positionX;
-	objectPosition.y = a_positionY;
-
-}
-
-void GridObject::setObjectPosition(sf::Vector2f a_position){
-
-	objectPosition = a_position;
+	objectPosGsu.x = a_positionX;
+	objectPosGsu.y = a_positionY;
 
 }
 
-sf::Vector2f GridObject::getObjectPosition(){
+void GridObject::setObjectPosGsu(sf::Vector2f a_position){
 
-	return objectPosition;
+	objectPosGsu = a_position;
+
+}
+
+sf::Vector2f GridObject::getObjectPosGsu(){
+
+	return objectPosGsu;
 
 }

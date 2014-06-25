@@ -8,23 +8,23 @@ FOTHgrid::FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures)
 
 void FOTHgrid::scroll(sf::Time a_tickTime, float scrollSpeed){
 
-	moveGridPosition( 0, a_tickTime.asSeconds() * scrollSpeed ); //Scroll speed is negated for proper direction
+	moveGridPosGsu( 0, a_tickTime.asSeconds() * scrollSpeed ); //Scroll speed is negated for proper direction
 
 }
 
 void FOTHgrid::addTrack(int x, int y){
 
 	if(getGridSpaceContaining(x, y)->getGridObject() == NULL){
-	
+
 		getGridSpaceContaining(x, y)->setGridObject(new Track(gridObjectTextures[1], getGridSpaceContaining(x, y)));
 
-	}	
+	}
 
 }
 
 void FOTHgrid::removeTrack(int x, int y){
 
-	if(Track::isTrack(getGridSpaceContaining(x, y)->getGridSpacePosition().x, getGridSpaceContaining(x, y)->getGridSpacePosition().y)){
+	if(Track::isTrack(getGridSpaceContaining(x, y)->getGridSpacePosGsu().x, getGridSpaceContaining(x, y)->getGridSpacePosGsu().y)){
 
 		getGridSpaceContaining(x, y)->setGridObject(NULL);
 
