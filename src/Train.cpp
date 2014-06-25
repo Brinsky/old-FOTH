@@ -1,4 +1,5 @@
 #include "Train.h"
+#include <cmath>
 
 Train::Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir a_startDir, Grid* a_parentGrid )
 {
@@ -45,4 +46,30 @@ void Train::draw( sf::RenderTarget& a_target, sf::RenderStates a_states )
 		(position.y * parentGrid->getGridSpaceDimPxl().y) + parentGrid->getGridPosPxl().y);
 
 	a_target.draw(sprite, a_states);
+}
+
+/** Finds the upcoming (from the Train's perspective) edge between two GridSpaces **/
+int Train::nextGridSpaceEdge( dir a_dir )
+{
+	int edgeCoordGsu = -1;
+
+	switch (a_dir) 
+	{
+		case North:
+			edgeCoordGsu = std::floor(position.y);
+			break;
+		case West:
+			edgeCoordGsu = std::floor(position.x);
+			break;
+		case South:
+			edgeCoordGsu = std::ceil(position.y);
+			break;
+		case East:
+			edgeCoordGsu = std::ceil(position.y);
+			break;
+		default:
+			break;
+	}
+	
+	return edgeCoordGsu;
 }

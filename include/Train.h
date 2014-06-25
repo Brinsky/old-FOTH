@@ -9,7 +9,7 @@
 class Train
 {
 	public:
-	//Define an enumeration type for directions
+	/** An enumeration type for directions */
 	enum dir { North = 0, West = 1, South = 2, East = 3 };
 
 	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, dir a_startDir, Grid* a_parentGrid );
@@ -24,6 +24,7 @@ class Train
 	Grid* parentGrid;
 	float speed;
 	sf::Sprite sprite;
+	int nextGridSpaceEdge( dir a_dir ); //Returns GSU
 };
 
 #endif
