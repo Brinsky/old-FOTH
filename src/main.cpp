@@ -12,8 +12,8 @@
 const int SCREEN_WIDTH = 448;
 const int SCREEN_HEIGHT = 640;
 
-int main(){
-
+int main()
+{
 	std::vector<sf::Texture*> gridObjectTextures;
 
 	sf::Texture defaultTexture;
@@ -54,7 +54,7 @@ int main(){
 	sf::Clock timeDiff; //Used to properly advance the game each tick
 	sf::Time tickTime;
 
-	//The "game loop"
+	//The infamous "game loop"
 	while ( window.isOpen() )
 	{
 
@@ -72,16 +72,16 @@ int main(){
                 switch( event.key.code )
                 {
                     case sf::Keyboard::Left:
-                        layer.shiftAndAct(FOTH::West);
+                        layer.moveAndPlace(FOTH::West);
                         break;
                     case sf::Keyboard::Right:
-                        layer.shiftAndAct(FOTH::East);
+                        layer.moveAndPlace(FOTH::East);
                         break;
                     case sf::Keyboard::Up:
-                        layer.shiftAndAct(FOTH::North);
+                        layer.moveAndPlace(FOTH::North);
                         break;
                     case sf::Keyboard::Down:
-                        layer.shiftAndAct(FOTH::South);
+                        layer.moveAndPlace(FOTH::South);
                         break;
                     default:
                         break;
@@ -105,5 +105,4 @@ int main(){
 	}
 
    	 return 0;
-
 }

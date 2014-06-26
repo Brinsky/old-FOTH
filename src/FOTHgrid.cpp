@@ -7,7 +7,7 @@ FOTHgrid::FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures)
 }
 
 /** If possible, creates a Track at a specified GridSpace. Returns false otherwise */
-bool FOTHgrid::addTrackAtGsu(int x, int y, FOTH::dir a_endDirA, FOTH::dir a_endDirB){
+Track* FOTHgrid::addTrackAtGsu(int x, int y, FOTH::dir a_endDirA, FOTH::dir a_endDirB){
 
     // Check if GridSpace is valid
     if( isWithinGrid(x, y) )
@@ -16,39 +16,17 @@ bool FOTHgrid::addTrackAtGsu(int x, int y, FOTH::dir a_endDirA, FOTH::dir a_endD
         if( grid[x][y]->getGridObject() == NULL )
         {
             // Add a new Track to the GridSpace
-            grid[x][y]->setGridObject(new Track(gridObjectTextures[1], a_endDirA, a_endDirB, grid[x][y]));
-            return true;
+            Track* newTrack = new Track(gridObjectTextures[1], a_endDirA, a_endDirB, grid[x][y]);
+            grid[x][y]->setGridObject(newTrack);
+            return newTrack;
         }
         else
         {
-            return false;
+            return NULL;
         }
     }
     else
     {
-        return false;
-    }
-}
-
-/** If possible, removes a Track at a specified GridSpace. Returns false otherwise */
-bool FOTHgrid::removeTrackAtGsu(int x, int y){
-
-    // Check if GridSpace is valid
-    if( isWithinGrid(x, y) )
-    {
-        // Check if a Track exists within that GridSpace
-        if( Track::isTrackAtGsu(x, y) )
-        {
-            // "Remove" the Track from the GridSpace
-            grid[x][y]->setGridObject(NULL);
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
+        return NULL;
     }
 }

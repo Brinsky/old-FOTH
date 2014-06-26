@@ -8,82 +8,58 @@ TrackLayer::TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
 
 	parentGrid = a_parentGrid;
 
-	layerMode = Place;
+	prevTrack = NULL;
+
+	// Required to orient the first piece of Track properly
+	prevTrackBackDir = FOTH::South;
 
 	// Place an initial North/South piece of track
-	placeTrack( FOTH::South, FOTH::North );
+	placeTrack( FOTH::North );
 }
 
-bool TrackLayer::shiftAndAct( FOTH::dir a_dir )
+/* Dependent on mode; causes TrackLayer to move and
+* potentially place track, remove track, or do nothing.
+* Returns false if the movement is illegal.
+*/
+bool TrackLayer::moveAndPlace( FOTH::dir a_dir )
 {
-	if( move(a_dir) )
-	{
-		switch (layerMode)
-		{
-			case Place:
-				// Places properly oriented track
-				placeTrack( FOTH::getOppositeDir(a_dir), a_dir );
-				break;
-			case Remove:
-				removeTrack();
-				break;
-			default:
-				break;
-		}
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+    sf::Vector2i posOffsetGsu( 0, 0 );
 
-/** Note: Direction values are interchangeable */
-bool TrackLayer::placeTrack( FOTH::dir a_endDirA, FOTH::dir a_endDirB )
-{
-	return parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, a_endDirA, a_endDirB);
-}
-
-bool TrackLayer::move( FOTH::dir a_dir )
-{
-	sf::Vector2i newPosGsu( 0, 0 );
-
-	// Determine how to change coordinates to move correctly
+	// Determine how to change GSU coordinates to move in specified direction
 	switch( a_dir )
 	{
 		case FOTH::North:
-			newPosGsu.x = 0;
-			newPosGsu.y = -1;
+			posOffsetGsu.x = 0;
+			posOffsetGsu.y = -1;
 			break;
 		case FOTH::West:
-			newPosGsu.x = -1;
-			newPosGsu.y = 0;
+			posOffsetGsu.x = -1;
+			posOffsetGsu.y = 0;
 			break;
 		case FOTH::South:
-			newPosGsu.x = 0;
-			newPosGsu.y = 1;
+			posOffsetGsu.x = 0;
+			posOffsetGsu.y = 1;
 			break;
 		case FOTH::East:
-			newPosGsu.x = 1;
-			newPosGsu.y = 0;
+			posOffsetGsu.x = 1;
+			posOffsetGsu.y = 0;
 			break;
 		default:
 			break;
 	}
 
-	//Check for validity of position and move
-	if( parentGrid->isWithinGrid(posGsu.x + newPosGsu.x,
-		posGsu.y + newPosGsu.y) )
-	{
-		// If there was a Track piece at the "previous" position, redirect it
-		if( (layerMode == Place) )//&& (Track::isTrackAtGsu(posGsu.x, posGsu.y)) )
-		{
-		    // Overwrite previous Track piece
-		    parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, FOTH::getOppositeDir(a_dir), a_dir);
-		}
+    // GridSpace to be checked for validity (will be null if not within bounds)
+    GridSpace* targetGridSpace = parentGrid->getGridSpaceAtGsu(posGsu.x + posOffsetGsu.x,
+            posGsu.y + posOffsetGsu.y);
 
-		posGsu.y += newPosGsu.y;
-		posGsu.x += newPosGsu.x;
+	// Check for validity of position and move
+	// Critera: is a valid position within the Grid and contains no Track
+	if( (targetGridSpace != NULL) && (targetGridSpace->getGridObject() == NULL) )
+	{
+		posGsu.y += posOffsetGsu.y;
+		posGsu.x += posOffsetGsu.x;
+
+		placeTrack(a_dir);
 
 		return true;
 	}
@@ -93,7 +69,29 @@ bool TrackLayer::move( FOTH::dir a_dir )
 	}
 }
 
-bool TrackLayer::removeTrack()
+/* Handles placing a new Track alongside orienting the new Track and the
+* segment of Track behind/before it.
+* a_frontDir is the direction value that the TrackLayer is currently moving in
+*/
+void TrackLayer::placeTrack(FOTH::dir a_frontDir)
 {
-    return parentGrid->removeTrackAtGsu(posGsu.x, posGsu.y);
+    // All pieces placed by TrackLayer are intially straight
+	Track* resultPiece = parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, a_frontDir, FOTH::getOppositeDir(a_frontDir));
+
+	if( resultPiece != NULL )
+    {
+        // Case only applies to first use of placeTrack
+        if( prevTrack != NULL)
+        {
+            // Because a new piece has been created, the directions on the previous
+            // piece need to be recalculated (by overwriting). The method below
+            // preserves that piece's "backDir" while giving it a new "frontDir"
+            prevTrack->setEndDirs(a_frontDir, prevTrackBackDir);
+        }
+
+        // After updating the previous piece, the new piece becomes the previous piece
+        prevTrack = resultPiece;
+        // And the new backDir becomes the previous backDir
+        prevTrackBackDir = FOTH::getOppositeDir(a_frontDir);
+    }
 }

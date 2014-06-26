@@ -13,30 +13,25 @@ class TrackLayer
 	enum mode { Place = 0, Move = 1, Remove = 2 };
 	TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid );
 
-	/* Dependent on mode; causes TrackLayer to move and
-	* potentially place track, remove track, or do nothing.
-	* Returns false if the movement is illegal.
-	**/
-	bool shiftAndAct( FOTH::dir a_dir );
+
+	bool moveAndPlace( FOTH::dir a_dir );
 
 	private:
-	/* Places track at the TrackLayer's current location.
-	* Fails and returns false if a Track is already present.
-	*/
-	bool placeTrack( FOTH::dir a_endDirA, FOTH::dir a_endDirB );
-	/* Attempts to move the TrackLayer. Returns false if
-	* movement is illegal.
-	*/
-	bool move( FOTH::dir a_dir );
-	/* Attempts to remove a Track at the TrackLayer's
-	* location. Returns false if Track isn't present.
-	*/
-	bool removeTrack();
+	void placeTrack( FOTH::dir a_frontDir );
+
 	/* The direction towards the previous piece of track.
 	* Used to keep new track pieces connected to the
 	* previous ones.
 	*/
 	FOTHgrid* parentGrid;
+	Track* prevTrack;
+
+	/* Used to track the direction the TrackLayer came from when
+    * placing the previous Track piece. Refers to the direction
+    * of the piece prior to the previous Track piece, as seen
+    * from that Track piece.
+    */
+	FOTH::dir prevTrackBackDir;
 	sf::Vector2i posGsu;
 	mode layerMode;
 };

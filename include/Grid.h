@@ -14,14 +14,15 @@ public:
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 	void setGridPosPxl(float a_positionX, float a_positionY);
 	void setGridPosPxl(sf::Vector2f a_position);
-	void moveGridPosGsu(float a_offsetX, float a_offsetY); //In GridSpace units!
-	void moveGridPosGsu(sf::Vector2f a_offset); //In GridSpace units!
-	bool isWithinGrid( float posGsuX, float posGsuY );
+	void moveGridPosGsu(float a_offsetX, float a_offsetY);
+	void moveGridPosGsu(sf::Vector2f a_offset);
+	GridSpace* getGridSpaceAtGsu( int x, int y );
 	sf::Vector2f getGridPosPxl();
 	sf::Vector2i getGridDimGsu();
 	sf::Vector2i getGridSpaceDimPxl();
 
 protected:
+	bool isWithinGrid( float posGsuX, float posGsuY );
 	GridSpace*** grid;
 	GridSpace* getGridSpaceContaining(int PxlX, int PxlY);
 	sf::Vector2f gridPosPxl;

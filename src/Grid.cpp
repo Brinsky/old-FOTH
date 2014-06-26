@@ -101,17 +101,18 @@ void Grid::moveGridPosGsu(sf::Vector2f a_offset){
 
 }
 
-/** Checks if GSU coordinates are within the Grid (and valid) */
-bool Grid::isWithinGrid( float posGsuX, float posGsuY )
+
+
+GridSpace* Grid::getGridSpaceAtGsu( int x, int y )
 {
-	if( (posGsuX >= 0) && (posGsuX < gridDimGsu.x) )
-	{
-		if( (posGsuY >= 0) && (posGsuY < gridDimGsu.y) )
-		{
-			return true;
-		}
-	}
-	return false;
+    if( isWithinGrid(x, y) )
+    {
+        return grid[x][y];
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 sf::Vector2f Grid::getGridPosPxl(){
@@ -150,4 +151,19 @@ GridSpace* Grid::getGridSpaceContaining(int PxlX, int PxlY){
 
 	return NULL;
 
+}
+
+// Private functions:
+
+/** Checks if GSU coordinates are within the Grid (and valid) */
+bool Grid::isWithinGrid( float posGsuX, float posGsuY )
+{
+	if( (posGsuX >= 0) && (posGsuX < gridDimGsu.x) )
+	{
+		if( (posGsuY >= 0) && (posGsuY < gridDimGsu.y) )
+		{
+			return true;
+		}
+	}
+	return false;
 }
