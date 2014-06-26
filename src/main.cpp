@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "FOTHgrid.h"
 #include "Train.h"
+#include "TrackLayer.h"
 
 //Gsu = GridSpace Units
 //Pxl = Pixels
@@ -42,6 +43,7 @@ int main(){
 
 	FOTHgrid testGrid(20, gridObjectTextures);
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), FOTH::North, (Grid*) &testGrid );
+	TrackLayer layer( 2, 14, &testGrid );
 
 	//Creating window and setting frame rate
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "FOTH");
@@ -62,24 +64,29 @@ int main(){
 		while( window.pollEvent( event ) )
 		{
 			if( event.type == sf::Event::Closed )
-				window.close();
-
-			if(event.type == sf::Event::MouseButtonPressed){
-
-				if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-
-					testGrid.removeTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224),
-                        sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
-
-				}else{
-
-					testGrid.addTrack(sf::Mouse::getPosition(window).x + (window.getView().getCenter().x - 224),
-                        sf::Mouse::getPosition(window).y + (window.getView().getCenter().y - 320));
-
-				}
-
-			}
-
+            {
+                window.close();
+            }
+            else if( event.type == sf::Event::KeyPressed )
+            {
+                switch( event.key.code )
+                {
+                    case sf::Keyboard::Left:
+                        layer.shiftAndAct(FOTH::West);
+                        break;
+                    case sf::Keyboard::Right:
+                        layer.shiftAndAct(FOTH::East);
+                        break;
+                    case sf::Keyboard::Up:
+                        layer.shiftAndAct(FOTH::North);
+                        break;
+                    case sf::Keyboard::Down:
+                        layer.shiftAndAct(FOTH::South);
+                        break;
+                    default:
+                        break;
+                }
+            }
 		}
 
 		//Takes current value in timeDiff and restarts it

@@ -8,7 +8,7 @@ Track::Track(sf::Texture* a_trackGraphic, GridSpace* a_parentGridSpace) : FOTHgr
 
 }
 
-bool Track::isTrack(int x, int y){
+bool Track::isTrackAtGsu(int x, int y){
 
 	for(int i = 0; i < trackGridSpaces.size(); i++){
 

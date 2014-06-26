@@ -6,28 +6,49 @@ FOTHgrid::FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures)
 
 }
 
-void FOTHgrid::scroll(sf::Time a_tickTime, float scrollSpeed){
+/** If possible, creates a Track at a specified GridSpace. Returns false otherwise */
+bool FOTHgrid::addTrackAtGsu(int x, int y){
 
-	moveGridPosGsu( 0, a_tickTime.asSeconds() * scrollSpeed ); //Scroll speed is negated for proper direction
-
+    // Check if GridSpace is valid
+    if( isWithinGrid(x, y) )
+    {
+        // Make sure the GridSpace is empty
+        if( grid[x][y]->getGridObject() == NULL )
+        {
+            // Add a new Track to the GridSpace
+            grid[x][y]->setGridObject(new Track(gridObjectTextures[1], grid[x][y]));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
-void FOTHgrid::addTrack(int x, int y){
+/** If possible, removes a Track at a specified GridSpace. Returns false otherwise */
+bool FOTHgrid::removeTrackAtGsu(int x, int y){
 
-	if(getGridSpaceContaining(x, y)->getGridObject() == NULL){
-
-		getGridSpaceContaining(x, y)->setGridObject(new Track(gridObjectTextures[1], getGridSpaceContaining(x, y)));
-
-	}
-
-}
-
-void FOTHgrid::removeTrack(int x, int y){
-
-	if(Track::isTrack(getGridSpaceContaining(x, y)->getGridSpacePosGsu().x, getGridSpaceContaining(x, y)->getGridSpacePosGsu().y)){
-
-		getGridSpaceContaining(x, y)->setGridObject(NULL);
-
-	}
-
+    // Check if GridSpace is valid
+    if( isWithinGrid(x, y) )
+    {
+        // Check if a Track exists within that GridSpace
+        if( Track::isTrackAtGsu(x, y) )
+        {
+            // "Remove" the Track from the GridSpace
+            grid[x][y]->setGridObject(NULL);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }

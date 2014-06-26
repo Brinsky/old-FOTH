@@ -101,6 +101,19 @@ void Grid::moveGridPosGsu(sf::Vector2f a_offset){
 
 }
 
+/** Checks if GSU coordinates are within the Grid (and valid) */
+bool Grid::isWithinGrid( float posGsuX, float posGsuY )
+{
+	if( (posGsuX >= 0) && (posGsuX < gridDimGsu.x) )
+	{
+		if( (posGsuY >= 0) && (posGsuY < gridDimGsu.y) )
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 sf::Vector2f Grid::getGridPosPxl(){
 
 	return gridPosPxl;
@@ -119,13 +132,13 @@ sf::Vector2i Grid::getGridSpaceDimPxl(){
 
 }
 
-GridSpace* Grid::getGridSpaceContaining(int x, int y){
+GridSpace* Grid::getGridSpaceContaining(int PxlX, int PxlY){
 
 	for(int i = 0; i < gridDimGsu.x; i++){
 
 		for(int j = 0; j < gridDimGsu.y; j++){
 
-			if(grid[i][j]->containsPosPxl(x, y)){
+			if(grid[i][j]->containsPosPxl(PxlX, PxlY)){
 
 				return grid[i][j];
 

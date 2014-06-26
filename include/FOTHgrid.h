@@ -10,9 +10,8 @@ class FOTHgrid : public Grid {
 
 public:
 	FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures);
-	void scroll( sf::Time  a_tickTime, float scrollSpeed /*In GridSpace units per second*/ );
-	void addTrack(int x, int y);
-	void removeTrack(int x, int y);
+	bool addTrackAtGsu(int x, int y);
+	bool removeTrackAtGsu(int x, int y);
 
 protected:
 	std::vector<sf::Texture*> gridObjectTextures;
