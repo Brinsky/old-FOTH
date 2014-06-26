@@ -1,4 +1,5 @@
 #include "TrackLayer.h"
+#include <iostream>
 
 TrackLayer::TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
 {
@@ -9,10 +10,8 @@ TrackLayer::TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
 
 	layerMode = Place;
 
-	backDir = FOTH::South;
-
 	// Place an initial North/South piece of track
-	placeTrack( backDir, FOTH::North );
+	placeTrack( FOTH::South, FOTH::North );
 }
 
 bool TrackLayer::shiftAndAct( FOTH::dir a_dir )
@@ -23,7 +22,7 @@ bool TrackLayer::shiftAndAct( FOTH::dir a_dir )
 		{
 			case Place:
 				// Places properly oriented track
-				placeTrack( backDir, a_dir );
+				placeTrack( FOTH::getOppositeDir(a_dir), a_dir );
 				break;
 			case Remove:
 				removeTrack();
@@ -39,9 +38,10 @@ bool TrackLayer::shiftAndAct( FOTH::dir a_dir )
 	}
 }
 
-bool TrackLayer::placeTrack( FOTH::dir a_comingFromDir, FOTH::dir a_goingToDir )
+/** Note: Direction values are interchangeable */
+bool TrackLayer::placeTrack( FOTH::dir a_endDirA, FOTH::dir a_endDirB )
 {
-	return parentGrid->addTrackAtGsu(posGsu.x, posGsu.y);
+	return parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, a_endDirA, a_endDirB);
 }
 
 bool TrackLayer::move( FOTH::dir a_dir )
@@ -75,10 +75,15 @@ bool TrackLayer::move( FOTH::dir a_dir )
 	if( parentGrid->isWithinGrid(posGsu.x + newPosGsu.x,
 		posGsu.y + newPosGsu.y) )
 	{
+		// If there was a Track piece at the "previous" position, redirect it
+		if( (layerMode == Place) )//&& (Track::isTrackAtGsu(posGsu.x, posGsu.y)) )
+		{
+		    // Overwrite previous Track piece
+		    parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, FOTH::getOppositeDir(a_dir), a_dir);
+		}
+
 		posGsu.y += newPosGsu.y;
 		posGsu.x += newPosGsu.x;
-
-		backDir = FOTH::getOppositeDir( a_dir );
 
 		return true;
 	}

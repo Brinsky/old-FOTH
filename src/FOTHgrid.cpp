@@ -7,7 +7,7 @@ FOTHgrid::FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures)
 }
 
 /** If possible, creates a Track at a specified GridSpace. Returns false otherwise */
-bool FOTHgrid::addTrackAtGsu(int x, int y){
+bool FOTHgrid::addTrackAtGsu(int x, int y, FOTH::dir a_endDirA, FOTH::dir a_endDirB){
 
     // Check if GridSpace is valid
     if( isWithinGrid(x, y) )
@@ -16,7 +16,7 @@ bool FOTHgrid::addTrackAtGsu(int x, int y){
         if( grid[x][y]->getGridObject() == NULL )
         {
             // Add a new Track to the GridSpace
-            grid[x][y]->setGridObject(new Track(gridObjectTextures[1], grid[x][y]));
+            grid[x][y]->setGridObject(new Track(gridObjectTextures[1], a_endDirA, a_endDirB, grid[x][y]));
             return true;
         }
         else

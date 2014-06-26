@@ -20,11 +20,10 @@ class TrackLayer
 	bool shiftAndAct( FOTH::dir a_dir );
 
 	private:
-
 	/* Places track at the TrackLayer's current location.
 	* Fails and returns false if a Track is already present.
 	*/
-	bool placeTrack( FOTH::dir a_comingFromDir, FOTH::dir a_goingToDir );
+	bool placeTrack( FOTH::dir a_endDirA, FOTH::dir a_endDirB );
 	/* Attempts to move the TrackLayer. Returns false if
 	* movement is illegal.
 	*/
@@ -38,7 +37,6 @@ class TrackLayer
 	* previous ones.
 	*/
 	FOTHgrid* parentGrid;
-	FOTH::dir backDir;
 	sf::Vector2i posGsu;
 	mode layerMode;
 };
