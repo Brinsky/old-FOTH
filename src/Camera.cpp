@@ -7,17 +7,18 @@ Camera::Camera(int a_windowWidth, int a_windowHeight, sf::RenderWindow* a_window
 
 	controlledWindow = a_windowToControl;
 
-	cameraPosition = controlledWindow->getView().getCenter();
+	cameraPosition.x = 0;
+	cameraPosition.y = 0;
 
 }
 
 void Camera::setPosition(float a_positionX, float a_positionY){
 
-	cameraPosition.x = a_positionX + (windowDimensions.x / 2);
-	cameraPosition.y = a_positionY + (windowDimensions.y / 2);
+	cameraPosition.x = a_positionX;
+	cameraPosition.y = a_positionY;
 
 	sf::View tempView = controlledWindow->getView();
-	tempView.setCenter(cameraPosition.x, cameraPosition.y);
+	tempView.setCenter(cameraPosition.x + (windowDimensions.x / 2), cameraPosition.y + (windowDimensions.y / 2));
 
 	controlledWindow->setView(tempView);
 
@@ -25,12 +26,20 @@ void Camera::setPosition(float a_positionX, float a_positionY){
 
 void Camera::move(float a_offsetX, float a_offsetY){
 
-	cameraPosition.x += a_offsetX;
-	cameraPosition.y += a_offsetY;
+//	cameraPosition.x += a_offsetX;
+//	cameraPosition.y += a_offsetY;
 
-	sf::View tempView = controlledWindow->getView();
-	tempView.setCenter(cameraPosition.x, cameraPosition.y);
+//	sf::View tempView = controlledWindow->getView();
+//	tempView.setCenter(cameraPosition.x + (windowDimensions.x / 2), cameraPosition.y + (windowDimensions.y / 2));
 
-	controlledWindow->setView(tempView);
+//	controlledWindow->setView(tempView);
+
+	setPosition(cameraPosition.x + a_offsetX, cameraPosition.y + a_offsetY);
+
+}
+
+sf::Vector2f Camera::getPosition(){
+
+	return cameraPosition;
 
 }
