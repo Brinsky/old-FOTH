@@ -10,19 +10,19 @@
 class Train
 {
 	public:
-	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, FOTH::dir a_startDir, Grid* a_parentGrid );
-	void changeDir( FOTH::dir a_newDir );
+	Train( sf::Texture* a_trainTexture, sf::Vector2f a_startGridPosition, foth::dir a_startDir, Grid* a_parentGrid );
+	void changeDir( foth::dir a_newDir );
 	void tick( sf::Time a_tickTime );
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 
 
 	private:
 	sf::Vector2f position; //Position in GridSpaces
-	FOTH::dir currentDir;
+	foth::dir currentDir;
 	Grid* parentGrid;
 	float speed;
 	sf::Sprite sprite;
-	int nextGridSpaceEdge( FOTH::dir a_dir ); //Returns GSU
+	int nextGridSpaceEdge( foth::dir a_dir ); //Returns GSU
 };
 
 #endif

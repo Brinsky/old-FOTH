@@ -9,19 +9,19 @@
 class Track : public FOTHgridObject {
 
 public:
-	Track(sf::Texture* a_trackGraphic, FOTH::dir a_endDirA, FOTH::dir b_endDirB, GridSpace* a_parentGridSpace);
+	Track(sf::Texture* a_trackGraphic, foth::dir a_endDirA, foth::dir b_endDirB, GridSpace* a_parentGridSpace);
 	void interactWithTrain(/*train*/);
 	void draw(sf::RenderTarget& a_target, sf::RenderStates a_states);
 	void orientSprite();
 	static bool isTrackAtGsu(int x, int y);
-	FOTH::dir getEndDirA();
-	FOTH::dir getEndDirB();
-	void setEndDirs( FOTH::dir a_endDirA, FOTH::dir a_endDirB );
+	foth::dir getEndDirA();
+	foth::dir getEndDirB();
+	void setEndDirs( foth::dir a_endDirA, foth::dir a_endDirB );
 
 private:
 	/** End directions determine the orientation of the track and the corresponding sprite */
-	FOTH::dir endDirB;
-	FOTH::dir endDirA;
+	foth::dir endDirB;
+	foth::dir endDirA;
 	static std::vector<sf::Vector2i> trackGridSpaces;
 	bool isNeighborTrack(int a_xGridPosOffset, int a_yGridPosOffset);
 

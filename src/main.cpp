@@ -14,6 +14,8 @@ const int SCREEN_HEIGHT = 640;
 
 int main()
 {
+    foth::getLevelGrid("lvl/testlevel.xml");
+
 	std::vector<sf::Texture*> gridObjectTextures;
 
 	sf::Texture defaultTexture;
@@ -42,7 +44,7 @@ int main()
 	gridObjectTextures.push_back(&trackTexture);
 
 	FOTHgrid testGrid(20, gridObjectTextures);
-	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), FOTH::North, (Grid*) &testGrid );
+	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), foth::North, (Grid*) &testGrid );
 	TrackLayer layer( 2, 14, &testGrid );
 
 	//Creating window and setting frame rate
@@ -72,16 +74,16 @@ int main()
                 switch( event.key.code )
                 {
                     case sf::Keyboard::Left:
-                        layer.moveAndPlace(FOTH::West);
+                        layer.moveAndPlace(foth::West);
                         break;
                     case sf::Keyboard::Right:
-                        layer.moveAndPlace(FOTH::East);
+                        layer.moveAndPlace(foth::East);
                         break;
                     case sf::Keyboard::Up:
-                        layer.moveAndPlace(FOTH::North);
+                        layer.moveAndPlace(foth::North);
                         break;
                     case sf::Keyboard::Down:
-                        layer.moveAndPlace(FOTH::South);
+                        layer.moveAndPlace(foth::South);
                         break;
                     default:
                         break;

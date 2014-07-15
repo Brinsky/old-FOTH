@@ -11,36 +11,36 @@ TrackLayer::TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
 	prevTrack = NULL;
 
 	// Required to orient the first piece of Track properly
-	prevTrackBackDir = FOTH::South;
+	prevTrackBackDir = foth::South;
 
 	// Place an initial North/South piece of track
-	placeTrack( FOTH::North );
+	placeTrack( foth::North );
 }
 
 /* Dependent on mode; causes TrackLayer to move and
 * potentially place track, remove track, or do nothing.
 * Returns false if the movement is illegal.
 */
-bool TrackLayer::moveAndPlace( FOTH::dir a_dir )
+bool TrackLayer::moveAndPlace( foth::dir a_dir )
 {
     sf::Vector2i posOffsetGsu( 0, 0 );
 
 	// Determine how to change GSU coordinates to move in specified direction
 	switch( a_dir )
 	{
-		case FOTH::North:
+		case foth::North:
 			posOffsetGsu.x = 0;
 			posOffsetGsu.y = -1;
 			break;
-		case FOTH::West:
+		case foth::West:
 			posOffsetGsu.x = -1;
 			posOffsetGsu.y = 0;
 			break;
-		case FOTH::South:
+		case foth::South:
 			posOffsetGsu.x = 0;
 			posOffsetGsu.y = 1;
 			break;
-		case FOTH::East:
+		case foth::East:
 			posOffsetGsu.x = 1;
 			posOffsetGsu.y = 0;
 			break;
@@ -73,10 +73,10 @@ bool TrackLayer::moveAndPlace( FOTH::dir a_dir )
 * segment of Track behind/before it.
 * a_frontDir is the direction value that the TrackLayer is currently moving in
 */
-void TrackLayer::placeTrack(FOTH::dir a_frontDir)
+void TrackLayer::placeTrack(foth::dir a_frontDir)
 {
     // All pieces placed by TrackLayer are intially straight
-	Track* resultPiece = parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, a_frontDir, FOTH::getOppositeDir(a_frontDir));
+	Track* resultPiece = parentGrid->addTrackAtGsu(posGsu.x, posGsu.y, a_frontDir, foth::getOppositeDir(a_frontDir));
 
 	if( resultPiece != NULL )
     {
@@ -92,6 +92,6 @@ void TrackLayer::placeTrack(FOTH::dir a_frontDir)
         // After updating the previous piece, the new piece becomes the previous piece
         prevTrack = resultPiece;
         // And the new backDir becomes the previous backDir
-        prevTrackBackDir = FOTH::getOppositeDir(a_frontDir);
+        prevTrackBackDir = foth::getOppositeDir(a_frontDir);
     }
 }

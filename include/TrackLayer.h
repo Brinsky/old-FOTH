@@ -14,10 +14,10 @@ class TrackLayer
 	TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid );
 
 
-	bool moveAndPlace( FOTH::dir a_dir );
+	bool moveAndPlace( foth::dir a_dir );
 
 	private:
-	void placeTrack( FOTH::dir a_frontDir );
+	void placeTrack( foth::dir a_frontDir );
 
 	/* The direction towards the previous piece of track.
 	* Used to keep new track pieces connected to the
@@ -31,7 +31,7 @@ class TrackLayer
     * of the piece prior to the previous Track piece, as seen
     * from that Track piece.
     */
-	FOTH::dir prevTrackBackDir;
+	foth::dir prevTrackBackDir;
 	sf::Vector2i posGsu;
 	mode layerMode;
 };
