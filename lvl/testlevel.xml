@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Grid width="7" height="15"
+xmlns="FOTHLevelNamespace"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="FOTHLevelNamespace FOTHLevelSchema.xsd">
+
+	<Train x="3" y="10"/>
+
+	<Row y="3">
+		<GridSpace x="5">
+			<Track dir_a="north" dir_b="south"/>
+		</GridSpace>
+		<GridSpace x="6">
+			<Tree/>
+		</GridSpace>
+	</Row>
+	<Row y="8">
+		<GridSpace x="3">
+			<Track dir_a="west" dir_b="south"/>
+		</GridSpace>
+		<GridSpace x="6">
+			<Tree/>
+		</GridSpace>
+	</Row>
+</Grid>

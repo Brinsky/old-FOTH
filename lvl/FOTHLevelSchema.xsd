@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--NOTE: FOTH does not actually use this Schema. At the moment it is intended entirely for reference purposes-->
+<!--NOTE: If Rows or GridSpaces (within the same Row) have identical coordinates, the later one will override the previous one-->
+<!--NOTE: Every possible Row/GridSpace does not need to be defined explicitly. FOTH will fill gaps with a default, empty GridSpace.-->
+<xs:schema elementFormDefault="qualified" targetNamespace="FOTHLevelNamespace" xmlns="FOTHLevelNamespace" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<!--Major container elements-->
+	<xs:element name="Grid">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Train" maxOccurs="1" minOccurs="1"/>
+				<xs:element ref="Row" maxOccurs="unbounded" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="width" type="xs:positiveInteger"/>
+			<xs:attribute name="height" type="xs:positiveInteger"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Train">
+		<xs:complexType>
+			<xs:attribute name="x" type="xs:positiveInteger"/>
+			<xs:attribute name="y" type="xs:positiveInteger"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Row">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="GridSpace" maxOccurs="unbounded" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="y" type="xs:positiveInteger"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GridSpace">
+		<xs:complexType>
+			<xs:sequence>
+				<!--Must be replaced by a GridObject subclass-->
+				<xs:element ref="GridObject" maxOccurs="1" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="x" type="xs:positiveInteger"/>
+		</xs:complexType>
+	</xs:element>
+	<!--Definition of abstract parent GridObject-->
+	<xs:element name="GridObject" abstract="true"/>
+	<!--Definition of all GridObject subclasses-->
+	<xs:element name="Track" substitutionGroup="GridObject">
+		<xs:complexType>
+			<xs:attribute name="dir_a" type="dirtype"/>
+			<xs:attribute name="dir_b" type="dirtype"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Tree" substitutionGroup="GridObject"/>
+	<!--Restriction types used to verify attribute values-->
+	 <xs:simpleType name="dirtype">
+	 	<xs:restriction base="xs:string">
+	 		<xs:enumeration value="north"/>
+	 		<xs:enumeration value="south"/>
+	 		<xs:enumeration value="east"/>
+	 		<xs:enumeration value="west"/>
+	 	</xs:restriction>
+	 </xs:simpleType>
+</xs:schema>
