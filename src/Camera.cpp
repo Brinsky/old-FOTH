@@ -1,14 +1,19 @@
 #include "Camera.h"
 
-Camera::Camera(int a_windowWidth, int a_windowHeight, sf::RenderWindow* a_windowToControl){
+Camera::Camera(int a_positionX, int a_positionY, int a_windowWidth, int a_windowHeight, sf::RenderWindow* a_windowToControl){
 
 	windowDimensions.x = a_windowWidth;
 	windowDimensions.y = a_windowHeight;
 
 	controlledWindow = a_windowToControl;
 
-	cameraPosition.x = 0;
-	cameraPosition.y = 0;
+	cameraPosition.x = a_positionX;
+	cameraPosition.y = a_positionY;
+
+	sf::View tempView = controlledWindow->getView();
+	tempView.setCenter(cameraPosition.x + (windowDimensions.x / 2), cameraPosition.y + (windowDimensions.y / 2));
+
+	controlledWindow->setView(tempView);
 
 }
 

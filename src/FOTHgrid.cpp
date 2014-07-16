@@ -1,6 +1,6 @@
 #include "FOTHgrid.h"
 
-FOTHgrid::FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures) : Grid(0, (10 - a_length) * 64, 7, a_length, 64, 64, a_gridObjectTextures[0]) {
+FOTHgrid::FOTHgrid(int a_length, std::vector<sf::Texture*> a_gridObjectTextures) : Grid(0, 0, 7, a_length, 64, 64, a_gridObjectTextures[0]) {
 
 	gridObjectTextures = a_gridObjectTextures;
 

@@ -11,6 +11,7 @@
 
 const int SCREEN_WIDTH = 448;
 const int SCREEN_HEIGHT = 640;
+const int GRID_LENGTH = 20;
 
 int main()
 {
@@ -39,17 +40,26 @@ int main()
 		return -1;
 
 	}
+
+	sf::Texture trackLayerTexture;
+	if(!trackLayerTexture.loadFromFile("res/TrackLayer.png")){
+
+		std::cout << "Texture did not load properly!" << std::endl;
+		return -1;
+
+	}
+
 	gridObjectTextures.push_back(&trackTexture);
 
-	FOTHgrid testGrid(20, gridObjectTextures);
+	FOTHgrid testGrid(GRID_LENGTH, gridObjectTextures);
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), FOTH::North, (Grid*) &testGrid );
-	TrackLayer layer( 2, 14, &testGrid );
+	TrackLayer layer(&trackLayerTexture, 2, 14, &testGrid );
 
 	//Creating window and setting frame rate
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "FOTH");
 	window.setFramerateLimit(60);
 
-	Camera screen(SCREEN_WIDTH, SCREEN_HEIGHT, &window);
+	Camera screen(0, (GRID_LENGTH - 10) * testGrid.getGridSpaceDimPxl().y, SCREEN_WIDTH, SCREEN_HEIGHT, &window);
 
 	sf::Clock timeDiff; //Used to properly advance the game each tick
 	sf::Time tickTime;
@@ -100,6 +110,7 @@ int main()
 		window.clear();
 		testGrid.draw( window, sf::RenderStates::Default );
 		painTrain.draw( window, sf::RenderStates::Default );
+		layer.draw(window, sf::RenderStates::Default);
 		window.display();
 
 	}

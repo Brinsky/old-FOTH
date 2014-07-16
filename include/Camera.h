@@ -7,7 +7,7 @@
 class Camera {
 
 public:
-	Camera(int a_windowWidth, int a_windowHeight, sf::RenderWindow* a_windowToControl);
+	Camera(int a_positionX, int a_positionY, int a_windowWidth, int a_windowHeight, sf::RenderWindow* a_windowToControl);
 	void move(float a_offsetX, float a_offsetY);
 	void setPosition(float a_positionX, float a_positionY);
 	sf::Vector2f getPosition();

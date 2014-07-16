@@ -1,8 +1,11 @@
-#include "TrackLayer.h"
+#include "TrackLayer.h" 
 #include <iostream>
 
-TrackLayer::TrackLayer( int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
+TrackLayer::TrackLayer(sf::Texture* a_layerTexture, int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
 {
+
+    layerGraphic.setTexture(*a_layerTexture); 
+
 	posGsu.x = a_posGsuX;
 	posGsu.y = a_posGsuY;
 
@@ -94,4 +97,36 @@ void TrackLayer::placeTrack(FOTH::dir a_frontDir)
         // And the new backDir becomes the previous backDir
         prevTrackBackDir = FOTH::getOppositeDir(a_frontDir);
     }
+}
+
+void TrackLayer::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
+
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y - 1) != NULL) && (!(Track::isTrackAtGsu(posGsu.x, posGsu.y - 1)))){
+	
+		layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, (posGsu.y - 1)  * parentGrid->getGridSpaceDimPxl().y);
+		a_target.draw(layerGraphic, a_states);	
+
+	}
+
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y + 1) != NULL) && (!(Track::isTrackAtGsu(posGsu.x, posGsu.y + 1)))){
+	
+		layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, (posGsu.y + 1)  * parentGrid->getGridSpaceDimPxl().y);
+		a_target.draw(layerGraphic, a_states);	
+
+	}
+
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x + 1, posGsu.y) != NULL) && (!(Track::isTrackAtGsu(posGsu.x + 1, posGsu.y)))){
+	
+		layerGraphic.setPosition((posGsu.x + 1) * parentGrid->getGridSpaceDimPxl().x, posGsu.y  * parentGrid->getGridSpaceDimPxl().y);
+		a_target.draw(layerGraphic, a_states);	
+
+	}
+
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x - 1, posGsu.y) != NULL) && (!(Track::isTrackAtGsu(posGsu.x - 1, posGsu.y)))){
+	
+		layerGraphic.setPosition((posGsu.x - 1) * parentGrid->getGridSpaceDimPxl().x, posGsu.y * parentGrid->getGridSpaceDimPxl().y);
+		a_target.draw(layerGraphic, a_states);	
+
+	}
+
 }
