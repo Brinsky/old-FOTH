@@ -97,6 +97,13 @@ int main()
                         break;
                 }
             }
+            else if( event.type == sf::Event::Resized )
+            {
+                //Maintains correct aspect ratio
+                sf::Vector2u newSize = window.getSize();
+                newSize.x = int (newSize.y / 10) * 7;
+                window.setSize( newSize );
+            }
 		}
 
 		//Takes current value in timeDiff and restarts it

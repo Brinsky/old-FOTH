@@ -101,28 +101,28 @@ void TrackLayer::placeTrack(FOTH::dir a_frontDir)
 
 void TrackLayer::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
-	if((parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y - 1) != NULL) && (!(Track::isTrackAtGsu(posGsu.x, posGsu.y - 1)))){
+	if(parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y - 1) != NULL && (parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y - 1)->getGridObject() == NULL)){
 	
 		layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, (posGsu.y - 1)  * parentGrid->getGridSpaceDimPxl().y);
 		a_target.draw(layerGraphic, a_states);	
 
 	}
 
-	if((parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y + 1) != NULL) && (!(Track::isTrackAtGsu(posGsu.x, posGsu.y + 1)))){
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y + 1) != NULL) && (parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y + 1)->getGridObject() == NULL)){
 	
 		layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, (posGsu.y + 1)  * parentGrid->getGridSpaceDimPxl().y);
 		a_target.draw(layerGraphic, a_states);	
 
 	}
 
-	if((parentGrid->getGridSpaceAtGsu(posGsu.x + 1, posGsu.y) != NULL) && (!(Track::isTrackAtGsu(posGsu.x + 1, posGsu.y)))){
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x + 1, posGsu.y) != NULL && (parentGrid->getGridSpaceAtGsu(posGsu.x + 1, posGsu.y)->getGridObject() == NULL))){
 	
 		layerGraphic.setPosition((posGsu.x + 1) * parentGrid->getGridSpaceDimPxl().x, posGsu.y  * parentGrid->getGridSpaceDimPxl().y);
 		a_target.draw(layerGraphic, a_states);	
 
 	}
 
-	if((parentGrid->getGridSpaceAtGsu(posGsu.x - 1, posGsu.y) != NULL) && (!(Track::isTrackAtGsu(posGsu.x - 1, posGsu.y)))){
+	if((parentGrid->getGridSpaceAtGsu(posGsu.x - 1, posGsu.y) != NULL) && (parentGrid->getGridSpaceAtGsu(posGsu.x - 1, posGsu.y)->getGridObject() == NULL)){
 	
 		layerGraphic.setPosition((posGsu.x - 1) * parentGrid->getGridSpaceDimPxl().x, posGsu.y * parentGrid->getGridSpaceDimPxl().y);
 		a_target.draw(layerGraphic, a_states);	
