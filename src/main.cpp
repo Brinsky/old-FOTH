@@ -49,11 +49,19 @@ int main()
 
 	}
 
+	sf::Texture trackLayerDirectionalArrow;
+	if(!trackLayerDirectionalArrow.loadFromFile("res/TrackLayerArrow.png")){
+
+		std::cout << "Texture did not load properly!" << std::endl;
+		return -1;
+
+	}
+
 	gridObjectTextures.push_back(&trackTexture);
 
 	FOTHgrid testGrid(GRID_LENGTH, gridObjectTextures);
 	Train painTrain( &trainTexture, sf::Vector2f( 2, 18 ), FOTH::North, (Grid*) &testGrid );
-	TrackLayer layer(&trackLayerTexture, 2, 14, &testGrid );
+	TrackLayer layer(&trackLayerTexture, &trackLayerDirectionalArrow, 2, 14, &testGrid );
 
 	//Creating window and setting frame rate
 	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "FOTH");
@@ -116,8 +124,8 @@ int main()
 		//Drawing operations
 		window.clear();
 		testGrid.draw( window, sf::RenderStates::Default );
-		painTrain.draw( window, sf::RenderStates::Default );
 		layer.draw(window, sf::RenderStates::Default);
+		painTrain.draw( window, sf::RenderStates::Default );
 		window.display();
 
 	}

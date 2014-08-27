@@ -1,10 +1,11 @@
 #include "TrackLayer.h" 
 #include <iostream>
 
-TrackLayer::TrackLayer(sf::Texture* a_layerTexture, int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
+TrackLayer::TrackLayer(sf::Texture* a_layerTexture, sf::Texture* a_layerArrow, int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid )
 {
 
     layerGraphic.setTexture(*a_layerTexture); 
+	layerDirectionalArrow.setTexture(*a_layerArrow);
 
 	posGsu.x = a_posGsuX;
 	posGsu.y = a_posGsuY;
@@ -24,6 +25,7 @@ TrackLayer::TrackLayer(sf::Texture* a_layerTexture, int a_posGsuX, int a_posGsuY
 * potentially place track, remove track, or do nothing.
 * Returns false if the movement is illegal.
 */
+
 bool TrackLayer::moveAndPlace( FOTH::dir a_dir )
 {
     sf::Vector2i posOffsetGsu( 0, 0 );
@@ -52,8 +54,7 @@ bool TrackLayer::moveAndPlace( FOTH::dir a_dir )
 	}
 
     // GridSpace to be checked for validity (will be null if not within bounds)
-    GridSpace* targetGridSpace = parentGrid->getGridSpaceAtGsu(posGsu.x + posOffsetGsu.x,
-            posGsu.y + posOffsetGsu.y);
+    GridSpace* targetGridSpace = parentGrid->getGridSpaceAtGsu(posGsu.x + posOffsetGsu.x, posGsu.y + posOffsetGsu.y);
 
 	// Check for validity of position and move
 	// Critera: is a valid position within the Grid and contains no Track
@@ -102,31 +103,38 @@ void TrackLayer::placeTrack(FOTH::dir a_frontDir)
 void TrackLayer::draw(sf::RenderTarget& a_target, sf::RenderStates a_states){
 
 	if(parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y - 1) != NULL && (parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y - 1)->getGridObject() == NULL)){
-	
-		layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, (posGsu.y - 1)  * parentGrid->getGridSpaceDimPxl().y);
-		a_target.draw(layerGraphic, a_states);	
+
+		layerDirectionalArrow.setRotation(0);		
+		layerDirectionalArrow.setPosition((posGsu.x * parentGrid->getGridSpaceDimPxl().x), ((posGsu.y - 1)  * parentGrid->getGridSpaceDimPxl().y));
+		a_target.draw(layerDirectionalArrow, a_states);
 
 	}
 
 	if((parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y + 1) != NULL) && (parentGrid->getGridSpaceAtGsu(posGsu.x, posGsu.y + 1)->getGridObject() == NULL)){
 	
-		layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, (posGsu.y + 1)  * parentGrid->getGridSpaceDimPxl().y);
-		a_target.draw(layerGraphic, a_states);	
+		layerDirectionalArrow.setRotation(180);
+		layerDirectionalArrow.setPosition((posGsu.x * parentGrid->getGridSpaceDimPxl().x) + 64, ((posGsu.y + 1)  * parentGrid->getGridSpaceDimPxl().y) + 64);	
+		a_target.draw(layerDirectionalArrow, a_states);
 
 	}
 
 	if((parentGrid->getGridSpaceAtGsu(posGsu.x + 1, posGsu.y) != NULL && (parentGrid->getGridSpaceAtGsu(posGsu.x + 1, posGsu.y)->getGridObject() == NULL))){
-	
-		layerGraphic.setPosition((posGsu.x + 1) * parentGrid->getGridSpaceDimPxl().x, posGsu.y  * parentGrid->getGridSpaceDimPxl().y);
-		a_target.draw(layerGraphic, a_states);	
+
+		layerDirectionalArrow.setRotation(90);	
+		layerDirectionalArrow.setPosition(((posGsu.x + 1) * parentGrid->getGridSpaceDimPxl().x) + 64, (posGsu.y  * parentGrid->getGridSpaceDimPxl().y));	
+		a_target.draw(layerDirectionalArrow, a_states);
 
 	}
 
 	if((parentGrid->getGridSpaceAtGsu(posGsu.x - 1, posGsu.y) != NULL) && (parentGrid->getGridSpaceAtGsu(posGsu.x - 1, posGsu.y)->getGridObject() == NULL)){
 	
-		layerGraphic.setPosition((posGsu.x - 1) * parentGrid->getGridSpaceDimPxl().x, posGsu.y * parentGrid->getGridSpaceDimPxl().y);
-		a_target.draw(layerGraphic, a_states);	
+		layerDirectionalArrow.setRotation(270);
+		layerDirectionalArrow.setPosition(((posGsu.x - 1) * parentGrid->getGridSpaceDimPxl().x), (posGsu.y * parentGrid->getGridSpaceDimPxl().y) + 64);
+		a_target.draw(layerDirectionalArrow, a_states);
 
 	}
+
+	layerGraphic.setPosition(posGsu.x * parentGrid->getGridSpaceDimPxl().x, posGsu.y * parentGrid->getGridSpaceDimPxl().y);
+	a_target.draw(layerGraphic, a_states);
 
 }

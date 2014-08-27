@@ -11,7 +11,7 @@ class TrackLayer
 {
 	public:
 	enum mode { Place = 0, Move = 1, Remove = 2 };
-	TrackLayer(sf::Texture* a_layerTexture, int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid );
+	TrackLayer(sf::Texture* a_layerTexture, sf::Texture* a_layerArrow, int a_posGsuX, int a_posGsuY, FOTHgrid* a_parentGrid );
 
 
 	bool moveAndPlace( FOTH::dir a_dir );
@@ -32,10 +32,12 @@ class TrackLayer
     * of the piece prior to the previous Track piece, as seen
     * from that Track piece.
     */
+	sf::Sprite layerDirectionalArrow;	
 	sf::Sprite layerGraphic;
 	FOTH::dir prevTrackBackDir;
 	sf::Vector2i posGsu;
 	mode layerMode;
+
 };
 
 #endif
