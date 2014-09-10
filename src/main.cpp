@@ -34,7 +34,7 @@ int main()
 	}
 
 	sf::Texture trackTexture;
-	if(!trackTexture.loadFromFile("res/Track.png")){
+	if(!trackTexture.loadFromFile("res/NewTrack.png")){
 
 		std::cout << "Texture did not load properly!" << std::endl;
 		return -1;

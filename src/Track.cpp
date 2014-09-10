@@ -8,6 +8,9 @@ Track::Track(sf::Texture* a_trackGraphic, FOTH::dir a_endDirA, FOTH::dir a_endDi
 	endDirA = a_endDirA;
 	endDirB = a_endDirB;
 
+	drawOffsets.x = 0;
+	drawOffsets.y = 0;
+
 	orientSprite();
 }
 
@@ -56,13 +59,25 @@ void Track::orientSprite()
 			switch( endDirB )
 			{
 				case FOTH::West:
-					objectGraphic.setTextureRect(sf::IntRect(64, 64, 128, 128));
+					//4
+					objectGraphic.setRotation(90);
+					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 64;
+					drawOffsets.y = 0;
 					break;
 				case FOTH::South:
+					//1
+					objectGraphic.setRotation(0);
 					objectGraphic.setTextureRect(sf::IntRect(0, 0, 64, 64));
+					drawOffsets.x = 0;
+					drawOffsets.y = 0;	
 					break;
 				case FOTH::East:
-					objectGraphic.setTextureRect(sf::IntRect(0, 64, 64, 128));
+					//3
+					objectGraphic.setRotation(180);
+					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 64;
+					drawOffsets.y = 64;	
 					break;
 				default:
 					break;
@@ -72,13 +87,25 @@ void Track::orientSprite()
 			switch( endDirB )
 			{
 				case FOTH::North:
-					objectGraphic.setTextureRect(sf::IntRect(64, 64, 128, 128));
+					//4
+					objectGraphic.setRotation(90);
+					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 64;
+					drawOffsets.y = 0;
 					break;
 				case FOTH::South:
+					//2
+					objectGraphic.setRotation(0);
 					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 0;
+					drawOffsets.y = 0;
 					break;
 				case FOTH::East:
-					objectGraphic.setTextureRect(sf::IntRect(64, 128, 128, 192));
+					//6
+					objectGraphic.setRotation(90);
+					objectGraphic.setTextureRect(sf::IntRect(0, 0, 64, 64));
+					drawOffsets.x = 64;
+					drawOffsets.y = 0;		
 					break;
 				default:
 					break;
@@ -88,13 +115,25 @@ void Track::orientSprite()
 			switch( endDirB )
 			{
 				case FOTH::North:
+					//1
+					objectGraphic.setRotation(0);
 					objectGraphic.setTextureRect(sf::IntRect(0, 0, 64, 64));
+					drawOffsets.x = 0;
+					drawOffsets.y = 0;	
 					break;
 				case FOTH::West:
+					//2
+					objectGraphic.setRotation(0);
 					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 0;
+					drawOffsets.y = 0;		
 					break;
 				case FOTH::East:
-					objectGraphic.setTextureRect(sf::IntRect(0, 128, 64, 192));
+					//5
+					objectGraphic.setRotation(270);
+					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 0;
+					drawOffsets.y = 64;
 					break;
 				default:
 					break;
@@ -104,27 +143,43 @@ void Track::orientSprite()
 			switch( endDirB )
 			{
 				case FOTH::North:
-					objectGraphic.setTextureRect(sf::IntRect(0, 64, 64, 128));
+					//3
+					objectGraphic.setRotation(180);
+					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 64;
+					drawOffsets.y = 64;
 					break;
 				case FOTH::West:
-					objectGraphic.setTextureRect(sf::IntRect(64, 128, 128, 192));
+					//6
+					objectGraphic.setRotation(90);
+					objectGraphic.setTextureRect(sf::IntRect(0, 0, 64, 64));
+					drawOffsets.x = 64;
+					drawOffsets.y = 0;		
 					break;
 				case FOTH::South:
-					objectGraphic.setTextureRect(sf::IntRect(0, 128, 64, 192));
+					//5
+					objectGraphic.setRotation(270);
+					objectGraphic.setTextureRect(sf::IntRect(64, 0, 128, 64));
+					drawOffsets.x = 0;
+					drawOffsets.y = 64;
 					break;
 				default:
 					break;
 			}
 			break;
 		default:
+			//1
+			objectGraphic.setRotation(0);
 			objectGraphic.setTextureRect(sf::IntRect(0, 0, 64, 64));
+			drawOffsets.x = 0;
+			drawOffsets.y = 0;
 			break;
 	}
 }
 
 void Track::draw(sf::RenderTarget& a_target, sf::RenderStates a_states)
 {
-	objectGraphic.setPosition((parentGridSpace->getGridSpaceDimPxl().x * (parentGridSpace->getGridSpacePosGsu().x + objectPosGsu.x)) + parentGridSpace->getGridPosPxl().x, (parentGridSpace->getGridSpaceDimPxl().y * (parentGridSpace->getGridSpacePosGsu().y + objectPosGsu.y)) + parentGridSpace->getGridPosPxl().y);
+	objectGraphic.setPosition((parentGridSpace->getGridSpaceDimPxl().x * (parentGridSpace->getGridSpacePosGsu().x + objectPosGsu.x)) + parentGridSpace->getGridPosPxl().x + drawOffsets.x, (parentGridSpace->getGridSpaceDimPxl().y * (parentGridSpace->getGridSpacePosGsu().y + objectPosGsu.y)) + parentGridSpace->getGridPosPxl().y + drawOffsets.y);
 
 	a_target.draw(objectGraphic, a_states);
 }

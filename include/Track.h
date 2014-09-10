@@ -24,6 +24,7 @@ private:
 	FOTH::dir endDirA;
 	static std::vector<sf::Vector2i> trackGridSpaces;
 	bool isNeighborTrack(int a_xGridPosOffset, int a_yGridPosOffset);
+	sf::Vector2i drawOffsets;
 
 };
 
