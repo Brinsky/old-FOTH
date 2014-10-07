@@ -5,6 +5,7 @@
 #include "FOTHgrid.h"
 #include "Train.h"
 #include "TrackLayer.h"
+#include "TextureManager.h"
 
 //Gsu = GridSpace Units
 //Pxl = Pixels
@@ -57,6 +58,8 @@ int main()
 
 	}
 
+	TextureManager man("res/texture_list");
+	
 	gridObjectTextures.push_back(&trackTexture);
 
 	FOTHgrid testGrid(GRID_LENGTH, gridObjectTextures);
